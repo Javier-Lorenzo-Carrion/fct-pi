@@ -3,7 +3,6 @@ import {Button, Card, Center, Container, Divider, Flex, Group, Text, TextInput, 
 import {Form, useForm} from "@mantine/form";
 import {Key, User} from "react-feather";
 import Link from "next/link";
-import Header from "@/components/Header";
 import Image from "next/image";
 import Navbar from "@/components/NavBarAnonymousUser";
 
