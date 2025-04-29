@@ -1,27 +1,22 @@
 "use client";
-import {Button, Card, Center, Container, Divider, Flex, Group, Text, TextInput, Title} from "@mantine/core";
-import {Form, useForm} from "@mantine/form";
+import {Button, Center, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
 import {Key, User} from "react-feather";
+import {useForm} from "@mantine/form";
 import Link from "next/link";
 
-interface LoginFormValues {
+interface SignupFormValues {
     username: string
     password: string
 }
 
-
-export default function Login(): Element {
-    const handleClick = () => {
-        console.log("clicked");
-    }
-
-    function handleLogin(values: LoginFormValues) {
+export default function Signup(): Element {
+    function handleSignup(values: SignupFormValues){
         console.log(values.username);
         console.log(values.password);
-        console.log("Inicio de sesión");
-    }
+        console.log("Registro de usuario");
 
-    const form = useForm<LoginFormValues>({
+    }
+    const form = useForm<SignupFormValues>({
         mode: "uncontrolled",
         initialValues: {
             username: '',
@@ -36,12 +31,9 @@ export default function Login(): Element {
         <Center h="100vh">
             <Flex gap="lg" justify="center" align="center" direction="column" wrap="wrap">
                 <Title size="lg">
-                    Inicio de sesión
+                    Registro de usuario
                 </Title>
-                <Link href="/signup" className="text-blue-600 hover:underline">
-                    No tengo cuenta, quiero registrarme
-                </Link>
-                <form onSubmit={form.onSubmit(handleLogin)}>
+                <form onSubmit={form.onSubmit(handleSignup)}>
                     <Flex gap="md" direction="column" wrap="wrap">
                         <TextInput
                             label={<Group><User size="20"/>Usuario</Group>}
@@ -58,8 +50,12 @@ export default function Login(): Element {
                         />
                         <Divider/>
                         <Button variant="filled" color="blue" radius="md" type="submit">
-                            Iniciar sesión
+                            Registrarme
                         </Button>
+                        <Divider/>
+                        <Link href="/login" className="text-blue-600 hover:underline">
+                            Ya soy un usuario registrado
+                        </Link>
                     </Flex>
                 </form>
             </Flex>
