@@ -3,13 +3,15 @@ import {Button, Center, Divider, Flex, Group, TextInput, Title} from "@mantine/c
 import {Key, User} from "react-feather";
 import {useForm} from "@mantine/form";
 import Link from "next/link";
+import Image from "next/image";
+import Navbar from "@/components/NavBarAnonymousUser";
 
 interface SignupFormValues {
     username: string
     password: string
 }
 
-export default function Signup(): Element {
+export default function Signup() {
     function handleSignup(values: SignupFormValues){
         console.log(values.username);
         console.log(values.password);
@@ -28,37 +30,52 @@ export default function Signup(): Element {
         }
     });
     return (
-        <Center h="100vh">
-            <Flex gap="lg" justify="center" align="center" direction="column" wrap="wrap">
-                <Title size="lg">
-                    Registro de usuario
-                </Title>
-                <form onSubmit={form.onSubmit(handleSignup)}>
-                    <Flex gap="md" direction="column" wrap="wrap">
-                        <TextInput
-                            label={<Group><User size="20"/>Usuario</Group>}
-                            placeholder="john"
-                            key={form.key('username')}
-                            {...form.getInputProps('username')}
-                        />
-                        <TextInput
-                            type="password"
-                            label={<Group><Key size="20"/>Contraseña</Group>}
-                            placeholder="*******"
-                            key={form.key('password')}
-                            {...form.getInputProps('password')}
-                        />
-                        <Divider/>
-                        <Button variant="filled" color="blue" radius="md" type="submit">
-                            Registrarme
-                        </Button>
-                        <Divider/>
-                        <Link href="/login" className="text-blue-600 hover:underline">
-                            Ya soy un usuario registrado
-                        </Link>
-                    </Flex>
-                </form>
-            </Flex>
-        </Center>
-    )
+        <div className="min-h-screen w-full bg-black flex items-center justify-center">
+            <Navbar/>
+            <div className="flex flex-row items-center justify-center gap-12">
+                <div className="text-white w-60">
+                    <Title size="lg" c="white" className="mb-4 text-center" >
+                        Registro de usuario
+                    </Title>
+                    <br/>
+                    <Link href="/login" className="text-blue-400 hover:underline text-sm">
+                        Ya soy un usuario registrado
+                    </Link>
+                    <form onSubmit={form.onSubmit(handleSignup)} className="mt-8 w-full">
+                        <Flex className="w-full" gap="xl" direction="column" wrap="wrap">
+                            <TextInput
+                                className="w-60"
+                                label={<Group><User size="20" />Usuario</Group>}
+                                placeholder="john"
+                                key={form.key("username")}
+                                {...form.getInputProps("username")}
+                            />
+                            <TextInput
+                                className="w-60"
+                                type="password"
+                                label={<Group><Key size="20" />Contraseña</Group>}
+                                placeholder="*******"
+                                key={form.key("password")}
+                                {...form.getInputProps("password")}
+                            />
+                            <Divider />
+                            <Button className="w-full" variant="filled" color="blue" radius="md" type="submit">
+                                Registrarme
+                            </Button>
+                        </Flex>
+                    </form>
+                </div>
+                <div className="flex-shrink-0">
+                    <Image
+                        src="/images/mainImage.jpg"
+                        alt="Imagen central"
+                        width={750}
+                        height={500}
+                        style={{ objectFit: "contain" }}
+                        priority
+                    />
+                </div>
+            </div>
+        </div>
+    );
 }
