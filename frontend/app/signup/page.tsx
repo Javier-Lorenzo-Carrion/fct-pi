@@ -1,10 +1,10 @@
 "use client";
 import {Button, Center, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
-import {Key, User} from "react-feather";
+import {Key, Mail, User, UserCheck, Voicemail} from "react-feather";
 import {useForm} from "@mantine/form";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "@/components/NavBarAnonymousUser";
+import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
 
 interface SignupFormValues {
     username: string
@@ -31,7 +31,7 @@ export default function Signup() {
     });
     return (
         <div className="min-h-screen w-full bg-black flex items-center justify-center">
-            <Navbar/>
+            <NavbarAnonymousUser/>
             <div className="flex flex-row items-center justify-center gap-12">
                 <div className="text-white w-60">
                     <Title size="lg" c="white" className="mb-4 text-center" >
@@ -45,7 +45,21 @@ export default function Signup() {
                         <Flex className="w-full" gap="xl" direction="column" wrap="wrap">
                             <TextInput
                                 className="w-60"
-                                label={<Group><User size="20" />Usuario</Group>}
+                                label={<Group><UserCheck size="20" />Nombre y apellidos</Group>}
+                                placeholder="Richard Thomas"
+                                key={form.key("username")}
+                                {...form.getInputProps("username")}
+                            />
+                            <TextInput
+                                className="w-60"
+                                label={<Group><Mail size="20" />Email</Group>}
+                                placeholder="example@gmail.com"
+                                key={form.key("username")}
+                                {...form.getInputProps("username")}
+                            />
+                            <TextInput
+                                className="w-60"
+                                label={<Group><User size="20" />Nombre de usuario</Group>}
                                 placeholder="john"
                                 key={form.key("username")}
                                 {...form.getInputProps("username")}
@@ -67,7 +81,7 @@ export default function Signup() {
                 </div>
                 <div className="flex-shrink-0">
                     <Image
-                        src="/images/mainImage.jpg"
+                        src="/images/backgroundImage.jpg"
                         alt="Imagen central"
                         width={750}
                         height={500}
