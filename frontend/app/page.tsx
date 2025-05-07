@@ -1,12 +1,12 @@
 import Image from "next/image";
 import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
-import NavbarHome from "@/components/NavBarHome";
+import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
 import {Title} from "@mantine/core";
 
 export default function Home() {
     return (
         <div className="min-h-screen w-full bg-black flex items-center justify-center">
-            <NavbarHome/>
+            <NavbarAnonymousUser/>
             <div className="text-white mt-8 w-max">
                 <p>
                     uhdoiQJWDSOXIHWEQWÑIDLSXKHWEÑSL-ADXJZMqlwaewfdce reasdfcaersdfcasduyck yegfduiEOJADSKL WUDISOL

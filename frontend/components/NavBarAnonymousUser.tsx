@@ -1,6 +1,8 @@
+'use client';
 import Link from "next/link";
 import {Divider, Flex} from "@mantine/core";
 import {usePathname} from "next/navigation";
+import {Lock} from "react-feather";
 
 export default function NavbarAnonymousUser() {
     const currentPath = usePathname();
@@ -10,12 +12,12 @@ export default function NavbarAnonymousUser() {
                 <div>
                     <Flex className="w-full" gap="xl" direction="row">
                         <Link href="/"
-                              className={`flex gap-2 mt-4 hover:underline ${currentPath === "/" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                              className={`flex gap-4 mt-4 hover:underline ${currentPath === "/" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             Home
                         </Link>
                         <Link
                             href="/signup"
-                            className={`flex gap-2 mt-4 hover:underline ${
+                            className={`flex gap-4 mt-4 hover:underline ${
                                 currentPath === "/signup" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
                             }`}
                         >
@@ -23,12 +25,31 @@ export default function NavbarAnonymousUser() {
                         </Link>
                         <Link
                             href="/login"
-                            className={`flex gap-2 mt-4 hover:underline ${
+                            className={`flex gap-4 mt-4 hover:underline ${
                                 currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
                             }`}
                         >
                             Iniciar sesión
                         </Link>
+                        <Link
+                            href="/report"
+                            className={`flex gap-4 mt-4 hover:underline ${
+                                currentPath === "/report" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
+                            }`}
+                        >
+                            <Lock size={16} className="shrink-0" />
+                            Generación de informes
+                        </Link>
+                        <Link
+                            href="/report-history"
+                            className={`flex gap-4 mt-4 hover:underline ${
+                                currentPath === "/report-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
+                            }`}
+                        >
+                            <Lock size={16} className={"shrink-0"} />
+                            Mis informes generados
+                        </Link>
+
                     </Flex>
                 </div>
                 <div className="absolute top-4 right-4 flex gap-4">

@@ -34,8 +34,8 @@ export default function Signup() {
             <NavbarAnonymousUser/>
             <div className="flex flex-row items-center justify-center gap-12">
                 <div className="text-white w-60">
-                    <Title size="lg" c="white" className="mb-4 text-center" >
-                        Registro de usuario
+                    <Title size="30" c="white" className="mb-4 text-center" >
+                        Registro usuario
                     </Title>
                     <br/>
                     <Link href="/login" className="text-blue-400 hover:underline text-sm">
