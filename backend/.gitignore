@@ -1,0 +1,6 @@
+.gradle
+.idea
+build/
+
+### Binaries ###
+*.class

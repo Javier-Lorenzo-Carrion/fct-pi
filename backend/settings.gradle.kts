@@ -1,0 +1,2 @@
+rootProject.name = "fct-pi"
+
