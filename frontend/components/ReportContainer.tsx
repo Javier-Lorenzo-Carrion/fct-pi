@@ -1,12 +1,8 @@
-import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
-import {Button, Divider, Flex, Group, NumberInput, Select, TextInput, Title, Tooltip} from "@mantine/core";
-import Link from "next/link";
-import {HelpCircle, Key, User} from "react-feather";
+import {Button, Divider, Flex, Group, NumberInput, Select, Title, Tooltip} from "@mantine/core";
+import {HelpCircle} from "react-feather";
 import Image from "next/image";
-import {use} from "react";
 import {useForm} from "@mantine/form";
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
-
 
 interface ReportFormValues {
     fundedCapital: number;
@@ -17,32 +13,24 @@ interface ReportFormValues {
 
 
 }
-
 interface ReportContainerProps {
     handleReportGeneration: (values: ReportFormValues) => void;
 
 }
-
 export default function ReportContainer(props: ReportContainerProps){
-
     const form = useForm<ReportFormValues>({
         mode: "controlled",
-
         initialValues: {
             // TODO: CUANDO SE INTRODUCE EL DATO EN EL CAMPO SIGUE APARECIENDO EL CERO AL PRINCIPIO CUANDO EL USUARIO ESCRIBE
             fundedCapital: 0.00,
             currency: "EUR",
             nominalInterestRate: 0.00,
             amortizationPeriod: 0.00,
-            amortizationSystem: "French system"
+            amortizationSystem: "FRENCH"
 
         // TODO: TENGO EL PROBLEMA DE QUE CUANDO DEJO LOS INITIAL VALUES LOS PLACEHOLDERS NO SIRVEN PARA NADA PERO SI LOS QUITO ENTONCES LO QUE NO SIRVE ES EL VALIDATE
 
         },
-
-
-
-
         validate: {
             fundedCapital: value => value > 0 ? null : 'Funded capital must be greater than zero',
             currency: value => value.length > 0 ? null : "Currency must be selected",
@@ -52,7 +40,16 @@ export default function ReportContainer(props: ReportContainerProps){
 
         }
     })
-
+    const currencies = [
+        {value: 'EUR', label: 'Euro'},
+        {value: 'USD', label: 'Dollar'},
+        {value: 'GBP', label: 'Pounds'},
+    ]
+    const amortizationSystems = [
+        {value: 'FRENCH', label: 'French System'},
+        {value: 'GERMAN', label: 'German System'},
+        {value: 'AMERICAN', label: 'American System'},
+    ]
 return <div className="min-h-screen w-full bg-black flex items-center justify-center">
     <NavBarRegisteredUser/>
     <div className="flex flex-row items-center justify-center gap-12">
@@ -67,7 +64,7 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                         classNames={{options: 'text-black'}}
                         label={<Group><Tooltip label={'The currency in which the loan is to be repaid must be indicated here.'}><HelpCircle size="20"/></Tooltip>Currency</Group>}
                         placeholder="EUR"
-                        data={['EUR', 'USD', 'GBP']}
+                        data={currencies}
                         {...form.getInputProps("currency")}
                     />
                     <NumberInput
@@ -105,7 +102,7 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                         classNames={{options: 'text-black'}}
                         label={<Group><Tooltip label={'The loan repayment system must be indicated here.'}><HelpCircle size="20"/></Tooltip>Amortization System</Group>}
                         placeholder="French system"
-                        data={['French system', 'American system', 'German system']}
+                        data={amortizationSystems}
                         {...form.getInputProps("amortizationSystem")}
                     />
                     <Divider/>
