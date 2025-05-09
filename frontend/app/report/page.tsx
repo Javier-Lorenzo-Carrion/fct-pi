@@ -1,8 +1,19 @@
 "use client";
-import ReportContainer from "@/components/ReportContainer";
+import ReportContainer, {ReportFormValues} from "@/components/ReportContainer";
 
-export default function ReportPage(){
-    return <ReportContainer handleReportGeneration={(values) => {
+export default function ReportPage() {
+    const generateReport = async (values: ReportFormValues) => {
         console.log(values)
-    }}></ReportContainer>
+        const response = await fetch("http://localhost:8080/reports", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        });
+        if (response.status !== 201) {
+            console.error(response)
+        }
+    }
+    return <ReportContainer handleReportGeneration={generateReport} />
 }

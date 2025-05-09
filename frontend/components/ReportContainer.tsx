@@ -4,7 +4,7 @@ import Image from "next/image";
 import {useForm} from "@mantine/form";
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
 
-interface ReportFormValues {
+export interface ReportFormValues {
     fundedCapital: number;
     currency: string;
     nominalInterestRate: number;
