@@ -4,9 +4,9 @@ services:
   db:
     image: "postgres:16.0-alpine3.18"
     environment:
-      POSTGRES_PASSWORD: "culaso"
+      POSTGRES_PASSWORD: "test"
       POSTGRES_USER: "test"
-      POSTGRES_DB: "clothes-shopping"
+      POSTGRES_DB: "lorenzoconsulting"
     volumes:
       - ./etc/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:

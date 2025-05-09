@@ -1,7 +1,6 @@
 package com.lorenzoconsulting.mortgage.business.application;
 
 import com.lorenzoconsulting.mortgage.business.domain.*;
-import com.lorenzoconsultores.clothesshopping.business.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
