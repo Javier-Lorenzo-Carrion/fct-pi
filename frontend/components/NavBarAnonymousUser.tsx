@@ -2,7 +2,8 @@
 import Link from "next/link";
 import {Divider, Flex} from "@mantine/core";
 import {usePathname} from "next/navigation";
-import {Lock} from "react-feather";
+import {Home, Lock, LogIn, UserPlus} from "react-feather";
+import Login from "@/app/login/page";
 
 export default function NavbarAnonymousUser() {
     const currentPath = usePathname();
@@ -11,64 +12,50 @@ export default function NavbarAnonymousUser() {
             <div className="max-w-screen-xl mx-auto flex justify-between items-center relative">
                 <div>
                     <Flex className="w-full" gap="xl" direction="row">
-                        <Link href="/"
-                              className={`flex gap-4 mt-4 hover:underline ${currentPath === "/" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                        <Link href="/" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                            <Home size={16} className="shrink-0"/>
                             Home
                         </Link>
-                        <Link
-                            href="/signup"
-                            className={`flex gap-4 mt-4 hover:underline ${
-                                currentPath === "/signup" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
-                            }`}
-                        >
-                            Registrarme
+                        <Link href="/report" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/report" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                            <Lock size={16} className="shrink-0"/>
+                            Generar mi informe
                         </Link>
-                        <Link
-                            href="/login"
-                            className={`flex gap-4 mt-4 hover:underline ${
-                                currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
-                            }`}
-                        >
-                            Iniciar sesión
-                        </Link>
-                        <Link
-                            href="/report"
-                            className={`flex gap-4 mt-4 hover:underline ${
-                                currentPath === "/report" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
-                            }`}
-                        >
-                            <Lock size={16} className="shrink-0" />
-                            Generación de informes
-                        </Link>
-                        <Link
-                            href="/report-history"
-                            className={`flex gap-4 mt-4 hover:underline ${
-                                currentPath === "/report-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"
-                            }`}
-                        >
-                            <Lock size={16} className={"shrink-0"} />
+                        <Link href="/report-history" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/report-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                            <Lock size={16} className="shrink-0"/>
                             Mis informes generados
                         </Link>
-
                     </Flex>
                 </div>
-                <div className="absolute top-4 right-4 flex gap-4">
-                    <button>
-                        <img
-                            src="/images/es.png"
-                            alt="Español"
-                            className="w-8 h-8 cursor-pointer"
-                            title="Español"
-                        />
-                    </button>
-                    <button>
-                        <img
-                            src="/images/en.png"
-                            alt="English"
-                            className="w-8 h-8 cursor-pointer"
-                            title="English"
-                        />
-                    </button>
+
+                <div className="flex items-center gap-6">
+                    <Link href="/signup" title="Signup" className="flex gap-4 hover:underline text-white">
+                        <span className={`shrink-0 mt-2 ${currentPath === "/signup" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
+                            <UserPlus size={18}/>
+                        </span>
+                    </Link>
+                    <Link href="/login" title="Login" className="flex gap-4 hover:underline text-white">
+                        <span className={`shrink-0 mt-2 ${currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
+                            <LogIn size={18}/>
+                        </span>
+                    </Link>
+                    <div className="flex gap-4">
+                        <button>
+                            <img
+                                src="/images/es.png"
+                                alt="Español"
+                                className="w-8 h-8 cursor-pointer"
+                                title="Español"
+                            />
+                        </button>
+                        <button>
+                            <img
+                                src="/images/en.png"
+                                alt="English"
+                                className="w-8 h-8 cursor-pointer"
+                                title="English"
+                            />
+                        </button>
+                    </div>
                 </div>
             </div>
             <Divider className="text-white mt-12"/>

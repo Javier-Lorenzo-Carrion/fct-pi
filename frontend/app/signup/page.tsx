@@ -1,18 +1,27 @@
 "use client";
 import {Button, Center, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
-import {Key, Mail, User, UserCheck, Voicemail} from "react-feather";
+import {Calendar, Key, Mail, User, UserCheck, Voicemail} from "react-feather";
 import {useForm} from "@mantine/form";
 import Link from "next/link";
 import Image from "next/image";
 import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
 
 interface SignupFormValues {
+    name: string
+    lastName: string
+    birthDate: string
+    email: string
     username: string
     password: string
+
 }
 
 export default function Signup() {
     function handleSignup(values: SignupFormValues){
+        console.log(values.name);
+        console.log(values.lastName);
+        console.log(values.email);
+        console.log(values.birthDate);
         console.log(values.username);
         console.log(values.password);
         console.log("Registro de usuario");
@@ -21,12 +30,21 @@ export default function Signup() {
     const form = useForm<SignupFormValues>({
         mode: "uncontrolled",
         initialValues: {
+            name: '',
+            lastName: '',
+            email: '',
+            birthDate: '',
             username: '',
             password: ''
         },
         validate: {
+            name: value => !!value.length ? null : 'Name is required',
+            lastName: value => !!value.length ? null : 'Last name is required',
+            birthDate: value => !!value.length ? null : 'Birth date is required',
+            email: value => !!value.length ? null : 'email is required',
             password: value => !!value.length ? null : 'Password is required',
             username: value => !!value.length ? null : 'Username is required',
+
         }
     });
     return (
@@ -45,17 +63,31 @@ export default function Signup() {
                         <Flex className="w-full" gap="xl" direction="column" wrap="wrap">
                             <TextInput
                                 className="w-60"
-                                label={<Group><UserCheck size="20" />Nombre y apellidos</Group>}
-                                placeholder="Richard Thomas"
-                                key={form.key("username")}
-                                {...form.getInputProps("username")}
+                                label={<Group><UserCheck size="20" />Nombre</Group>}
+                                placeholder="John Richard"
+                                key={form.key("name")}
+                                {...form.getInputProps("name")}
+                            />
+                            <TextInput
+                                className="w-60"
+                                label={<Group><UserCheck size="20" />Apellidos</Group>}
+                                placeholder="Hogan Rockefeller"
+                                key={form.key("lastName")}
+                                {...form.getInputProps("lastName")}
+                            />
+                            <TextInput
+                                className="w-60"
+                                label={<Group><Calendar size="20" />Fecha de nacimiento</Group>}
+                                placeholder="01-01-1990"
+                                key={form.key("birthDate")}
+                                {...form.getInputProps("birthDate")}
                             />
                             <TextInput
                                 className="w-60"
                                 label={<Group><Mail size="20" />Email</Group>}
                                 placeholder="example@gmail.com"
-                                key={form.key("username")}
-                                {...form.getInputProps("username")}
+                                key={form.key("email")}
+                                {...form.getInputProps("email")}
                             />
                             <TextInput
                                 className="w-60"
