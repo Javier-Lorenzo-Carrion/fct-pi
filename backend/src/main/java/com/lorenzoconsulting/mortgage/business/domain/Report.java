@@ -1,0 +1,67 @@
+package com.lorenzoconsulting.mortgage.business.domain;
+
+public class Report {
+    private String currency;
+    private double fundedCapital;
+    private double nominalInterestRate;
+    private int amortizationPeriod;
+    private String amortizationSystem;
+    private double monthlyLoanPayment;
+    private double totalLoanPayment;
+    private double totalInterestPayment;
+    private double relativeInterestCharge;
+
+    public Report(String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+        this.currency = currency;
+        this.fundedCapital = fundedCapital;
+        this.nominalInterestRate = nominalInterestRate;
+        this.amortizationPeriod = amortizationPeriod;
+        this.amortizationSystem = amortizationSystem;
+        this.monthlyLoanPayment = monthlyLoanPayment;
+        this.totalLoanPayment = totalLoanPayment;
+        this.totalInterestPayment = totalInterestPayment;
+        this.relativeInterestCharge = relativeInterestCharge;
+    }
+
+    public static Report create(CreatableReportFields fields) {
+
+        int numberOfPaymentsByYear = 12;
+        double monthlyNominalRate = fields.nominalInterestRate() / numberOfPaymentsByYear;
+        int monthsAmortizationPeriod = fields.amortizationPeriod() * numberOfPaymentsByYear;
+        final double monthlyLoanPayment = fields.fundedCapital() * (monthlyNominalRate / (1 - Math.pow((1 + monthlyNominalRate), monthsAmortizationPeriod)));
+        double totalLoanPayment = monthlyLoanPayment * monthsAmortizationPeriod;
+        double totalInterestPayment = totalLoanPayment - fields.fundedCapital();
+        double totalAmortizationPayment = totalLoanPayment - totalInterestPayment;
+        double relativeInterestRate = totalInterestPayment / fields.fundedCapital();
+
+        int currentPeriod = 0;
+        double currentInterestFee = 0;
+        double currentAmortizationFee = 0;
+        double currentAmortizedCapital = 0;
+        double currentRemainingCapital = fields.fundedCapital();
+
+        for (int i = 0; i < monthsAmortizationPeriod; i++) {
+            currentPeriod = currentPeriod + 1;
+            currentInterestFee = currentRemainingCapital * monthlyNominalRate;
+            currentAmortizationFee = monthlyLoanPayment - currentInterestFee;
+            currentRemainingCapital = currentRemainingCapital - currentAmortizationFee;
+            currentAmortizedCapital = currentAmortizedCapital + currentAmortizationFee;
+            System.out.println(currentPeriod + monthlyLoanPayment + currentInterestFee + currentAmortizationFee + currentAmortizedCapital + currentRemainingCapital);
+        }
+
+        System.out.println(monthlyLoanPayment + totalLoanPayment +  totalAmortizationPayment + totalInterestPayment + relativeInterestRate);
+
+        Report report = new Report(
+                fields.currency(),
+                fields.fundedCapital(),
+                fields.nominalInterestRate(),
+                fields.amortizationPeriod(),
+                fields.amortizationSystem(),
+                monthlyLoanPayment,
+                totalLoanPayment,
+                totalInterestPayment,
+                relativeInterestRate
+                );
+        return report;
+    }
+}

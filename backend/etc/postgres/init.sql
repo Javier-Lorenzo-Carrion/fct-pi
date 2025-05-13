@@ -1,3 +1,3 @@
-CREATE DATABASE "clothes-shopping-test";
+CREATE DATABASE "mortgage-reports-test";
 
-GRANT ALL PRIVILEGES ON DATABASE "clothes-shopping-test" TO test;
+GRANT ALL PRIVILEGES ON DATABASE "mortgage-reports-test" TO test;
