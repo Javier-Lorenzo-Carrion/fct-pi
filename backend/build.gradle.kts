@@ -20,6 +20,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.assertj:assertj-core:3.11.1")
     testImplementation("org.mockito:mockito-core:3.+")
+
+    implementation("org.apache.pdfbox:pdfbox:2.0.30")
 }
 
 tasks.getByName<Test>("test") {
