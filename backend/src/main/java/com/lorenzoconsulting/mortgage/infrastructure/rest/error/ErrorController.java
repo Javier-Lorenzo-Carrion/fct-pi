@@ -1,6 +1,7 @@
 package com.lorenzoconsulting.mortgage.infrastructure.rest.error;
 
 import com.lorenzoconsulting.mortgage.business.domain.InvalidUserException;
+import com.lorenzoconsulting.mortgage.business.domain.ReportNotFoundException;
 import com.lorenzoconsulting.mortgage.business.domain.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class ErrorController {
         return ResponseEntity.internalServerError().body(new ErrorResponse("Unknown error"));
     }
 
-    @ExceptionHandler(value = {UserNotFoundException.class})
+    @ExceptionHandler(value = {UserNotFoundException.class, ReportNotFoundException.class})
     public ResponseEntity<ErrorResponse> handleNotFoundException(RuntimeException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(exception.getMessage()));
     }

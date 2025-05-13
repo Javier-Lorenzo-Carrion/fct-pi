@@ -1,6 +1,9 @@
 package com.lorenzoconsulting.mortgage.business.domain;
 
+import java.util.UUID;
+
 public class Report {
+    private String id;
     private String currency;
     private double fundedCapital;
     private double nominalInterestRate;
@@ -11,7 +14,8 @@ public class Report {
     private double totalInterestPayment;
     private double relativeInterestCharge;
 
-    public Report(String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+    public Report(String id, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+        this.id = id;
         this.currency = currency;
         this.fundedCapital = fundedCapital;
         this.nominalInterestRate = nominalInterestRate;
@@ -25,6 +29,7 @@ public class Report {
 
     public static Report create(CreatableReportFields fields) {
 
+        String id = UUID.randomUUID().toString();
         int numberOfPaymentsByYear = 12;
         double monthlyNominalRate = fields.nominalInterestRate() / numberOfPaymentsByYear;
         int monthsAmortizationPeriod = fields.amortizationPeriod() * numberOfPaymentsByYear;
@@ -49,9 +54,10 @@ public class Report {
             System.out.println(currentPeriod + monthlyLoanPayment + currentInterestFee + currentAmortizationFee + currentAmortizedCapital + currentRemainingCapital);
         }
 
-        System.out.println(monthlyLoanPayment + totalLoanPayment +  totalAmortizationPayment + totalInterestPayment + relativeInterestRate);
+        System.out.println(monthlyLoanPayment + totalLoanPayment +  totalAmortizationPayment + totalInterestPayment + relativeInterestRate + monthsAmortizationPeriod + fields.currency() + fields.fundedCapital() + fields.amortizationSystem() + fields.nominalInterestRate());
 
         Report report = new Report(
+                id,
                 fields.currency(),
                 fields.fundedCapital(),
                 fields.nominalInterestRate(),
@@ -63,5 +69,45 @@ public class Report {
                 relativeInterestRate
                 );
         return report;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public double getFundedCapital() {
+        return fundedCapital;
+    }
+
+    public double getNominalInterestRate() {
+        return nominalInterestRate;
+    }
+
+    public int getAmortizationPeriod() {
+        return amortizationPeriod;
+    }
+
+    public String getAmortizationSystem() {
+        return amortizationSystem;
+    }
+
+    public double getMonthlyLoanPayment() {
+        return monthlyLoanPayment;
+    }
+
+    public double getTotalLoanPayment() {
+        return totalLoanPayment;
+    }
+
+    public double getTotalInterestPayment() {
+        return totalInterestPayment;
+    }
+
+    public double getRelativeInterestCharge() {
+        return relativeInterestCharge;
     }
 }
