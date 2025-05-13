@@ -4,6 +4,7 @@ import com.lorenzoconsulting.mortgage.business.application.ReportService;
 import com.lorenzoconsulting.mortgage.business.application.UserService;
 import com.lorenzoconsulting.mortgage.business.domain.Report;
 import com.lorenzoconsulting.mortgage.business.domain.User;
+import com.lorenzoconsulting.mortgage.infrastructure.pdf.PdfReportGenerator;
 import com.lorenzoconsulting.mortgage.infrastructure.rest.user.CreateUserRequest;
 import com.lorenzoconsulting.mortgage.infrastructure.rest.user.UpdateUserRequest;
 import com.lorenzoconsulting.mortgage.infrastructure.rest.user.UserResponse;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -44,4 +46,19 @@ public class ReportController {
         Report report = reportService.get(id);
         return ResponseEntity.ok(report);
     }
+
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> getPdfById(@PathVariable String id) {
+        try {
+            Report report = reportService.get(id);
+            byte[] pdfBytes = PdfReportGenerator.generate(report);
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=report-" + report.getId() + ".pdf")
+                    .header("Content-Type", "application/pdf")
+                    .body(pdfBytes);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body(null);
+        }
+    }
+
 }
