@@ -1,0 +1,41 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20250514-1" author="user">
+        <createTable tableName="reports">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="reports_pk"/>
+            </column>
+            <column name="currency" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="funded_capital" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nominal_interest_rate" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amortization_period" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amortization_system" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monthly_loan_payment" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_loan_payment" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_interest_payment" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="relative_interest_charge" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

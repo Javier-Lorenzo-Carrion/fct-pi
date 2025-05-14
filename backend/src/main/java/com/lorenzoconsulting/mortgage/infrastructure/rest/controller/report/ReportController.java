@@ -50,6 +50,7 @@ public class ReportController {
                     .header("Content-Type", "application/pdf")
                     .body(pdfBytes);
         } catch (IOException e) {
+            logger.error("Error generating PDF for report " + id, e);
             return ResponseEntity.internalServerError().body(null);
         }
     }

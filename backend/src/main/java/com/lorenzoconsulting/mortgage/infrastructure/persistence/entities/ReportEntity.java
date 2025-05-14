@@ -39,7 +39,7 @@ public class ReportEntity {
 
     public ReportEntity(){}
 
-    public ReportEntity(UUID ID, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+    public ReportEntity(UUID id, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
         this.id = id;
         this.currency = currency;
         this.fundedCapital = fundedCapital;
@@ -129,7 +129,8 @@ public class ReportEntity {
     }
 
     public static ReportEntity fromReport(Report report) {
-        return new ReportEntity(UUID.fromString(report.getId()), report.getCurrency(), report.getFundedCapital(), report.getNominalInterestRate(), report.getAmortizationPeriod(), report.getAmortizationSystem(), report.getMonthlyLoanPayment(), report.getTotalLoanPayment(), report.getTotalInterestPayment(), report.getRelativeInterestCharge());
+        UUID id = report.getId() != null ? UUID.fromString(report.getId()) : UUID.randomUUID();
+        return new ReportEntity(id, report.getCurrency(), report.getFundedCapital(), report.getNominalInterestRate(), report.getAmortizationPeriod(), report.getAmortizationSystem(), report.getMonthlyLoanPayment(), report.getTotalLoanPayment(), report.getTotalInterestPayment(), report.getRelativeInterestCharge());
     }
 
     public Report toReport() {
