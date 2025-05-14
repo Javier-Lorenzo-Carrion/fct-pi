@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.report;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.report;
 
 import com.lorenzoconsulting.mortgage.business.domain.Report;
 

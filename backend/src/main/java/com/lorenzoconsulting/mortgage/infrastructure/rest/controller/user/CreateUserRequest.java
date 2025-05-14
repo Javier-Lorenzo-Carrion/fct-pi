@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.user;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.user;
 
 import com.lorenzoconsulting.mortgage.business.domain.CreatableUserFields;
 

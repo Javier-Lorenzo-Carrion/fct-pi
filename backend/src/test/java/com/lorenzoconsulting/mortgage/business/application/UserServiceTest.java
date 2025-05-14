@@ -1,5 +1,6 @@
 package com.lorenzoconsulting.mortgage.business.application;
 
+import com.lorenzoconsulting.mortgage.business.application.service.UserService;
 import com.lorenzoconsulting.mortgage.business.domain.*;
 import com.lorenzoconsultores.clothesshopping.business.domain.*;
 import org.assertj.core.api.Assertions;

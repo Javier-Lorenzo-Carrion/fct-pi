@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.error;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.error;
 
 public class ErrorResponse {
 

@@ -1,6 +1,6 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.user;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.user;
 
-import com.lorenzoconsulting.mortgage.business.application.UserService;
+import com.lorenzoconsulting.mortgage.business.application.service.UserService;
 import com.lorenzoconsulting.mortgage.business.domain.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

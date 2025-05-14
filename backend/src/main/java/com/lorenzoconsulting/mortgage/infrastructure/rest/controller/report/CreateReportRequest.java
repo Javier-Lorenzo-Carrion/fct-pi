@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.report;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.report;
 
 import com.lorenzoconsulting.mortgage.business.domain.CreatableReportFields;
 
@@ -16,6 +16,11 @@ public class CreateReportRequest {
         this.nominalInterestRate = nominalInterestRate;
         this.amortizationPeriod = amortizationPeriod;
         this.amortizationSystem = amortizationSystem;
+    }
+
+
+    public CreatableReportFields toFields() {
+        return new CreatableReportFields(currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem);
     }
 
     public String getCurrency() {
@@ -56,10 +61,6 @@ public class CreateReportRequest {
 
     public void setAmortizationSystem(String amortizationSystem) {
         this.amortizationSystem = amortizationSystem;
-    }
-
-    public CreatableReportFields toFields() {
-        return new CreatableReportFields(currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem);
     }
 
 }

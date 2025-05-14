@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest;
+package com.lorenzoconsulting.mortgage.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

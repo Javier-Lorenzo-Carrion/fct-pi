@@ -1,13 +1,7 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.report;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.report;
 
-import com.lorenzoconsulting.mortgage.business.application.ReportService;
-import com.lorenzoconsulting.mortgage.business.application.UserService;
+import com.lorenzoconsulting.mortgage.business.application.service.ReportService;
 import com.lorenzoconsulting.mortgage.business.domain.Report;
-import com.lorenzoconsulting.mortgage.business.domain.User;
-import com.lorenzoconsulting.mortgage.infrastructure.pdf.PdfReportGenerator;
-import com.lorenzoconsulting.mortgage.infrastructure.rest.user.CreateUserRequest;
-import com.lorenzoconsulting.mortgage.infrastructure.rest.user.UpdateUserRequest;
-import com.lorenzoconsulting.mortgage.infrastructure.rest.user.UserResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -50,10 +44,9 @@ public class ReportController {
     @GetMapping("/{id}/pdf")
     public ResponseEntity<byte[]> getPdfById(@PathVariable String id) {
         try {
-            Report report = reportService.get(id);
-            byte[] pdfBytes = PdfReportGenerator.generate(report);
+            byte[] pdfBytes = reportService.generatePdf(id);
             return ResponseEntity.ok()
-                    .header("Content-Disposition", "attachment; filename=report-" + report.getId() + ".pdf")
+                    .header("Content-Disposition", "attachment; filename=report-" + id + ".pdf")
                     .header("Content-Type", "application/pdf")
                     .body(pdfBytes);
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.infrastructure.rest.error;
+package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.error;
 
 import com.lorenzoconsulting.mortgage.business.domain.InvalidUserException;
 import com.lorenzoconsulting.mortgage.business.domain.ReportNotFoundException;

@@ -1,4 +1,4 @@
-package com.lorenzoconsulting.mortgage.business.application;
+package com.lorenzoconsulting.mortgage.business.application.service;
 
 import com.lorenzoconsulting.mortgage.business.domain.*;
 import org.springframework.stereotype.Service;
