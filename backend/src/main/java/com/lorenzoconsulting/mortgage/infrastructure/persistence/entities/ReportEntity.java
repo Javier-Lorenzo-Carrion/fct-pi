@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.type.descriptor.jdbc.UUIDJdbcType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -19,6 +20,8 @@ public class ReportEntity {
     @Id
     @JdbcType(UUIDJdbcType.class)
     private UUID id;
+    @Column(name = "generationDate")
+    private LocalDateTime generationDate;
     @Column(name = "currency")
     private String currency;
     @Column(name = "fundedCapital")
@@ -40,8 +43,9 @@ public class ReportEntity {
 
     public ReportEntity(){}
 
-    public ReportEntity(UUID id, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+    public ReportEntity(UUID id, LocalDateTime generationDate,String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
         this.id = id;
+        this.generationDate = generationDate;
         this.currency = currency;
         this.fundedCapital = fundedCapital;
         this.nominalInterestRate = nominalInterestRate;
@@ -55,6 +59,10 @@ public class ReportEntity {
 
     public UUID getId() {
         return id;
+    }
+
+    public LocalDateTime getGenerationDate() {
+        return generationDate;
     }
 
     public String getCurrency() {
@@ -131,11 +139,22 @@ public class ReportEntity {
 
     public static ReportEntity fromReport(Report report) {
         UUID id = report.getId() != null ? UUID.fromString(report.getId()) : UUID.randomUUID();
-        return new ReportEntity(id, report.getCurrency(), report.getFundedCapital(), report.getNominalInterestRate(), report.getAmortizationPeriod(), report.getAmortizationSystem(), report.getMonthlyLoanPayment(), report.getTotalLoanPayment(), report.getTotalInterestPayment(), report.getRelativeInterestCharge());
+        return new ReportEntity(
+                id,
+                report.getGenerationDate(),
+                report.getCurrency(),
+                report.getFundedCapital(),
+                report.getNominalInterestRate(),
+                report.getAmortizationPeriod(),
+                report.getAmortizationSystem(),
+                report.getMonthlyLoanPayment(),
+                report.getTotalLoanPayment(),
+                report.getTotalInterestPayment(),
+                report.getRelativeInterestCharge());
     }
 
     public Report toReport() {
-        return new Report(id.toString(), currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem, monthlyLoanPayment, totalLoanPayment, totalInterestPayment, relativeInterestCharge, new ArrayList<>());
+        return new Report(id.toString(), generationDate,currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem, monthlyLoanPayment, totalLoanPayment, totalInterestPayment, relativeInterestCharge, new ArrayList<>());
     }
 
 

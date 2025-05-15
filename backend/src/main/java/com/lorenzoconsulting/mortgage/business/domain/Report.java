@@ -1,11 +1,13 @@
 package com.lorenzoconsulting.mortgage.business.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Report {
     private String id;
+    private LocalDateTime generationDate;
     private String currency;
     private double fundedCapital;
     private double nominalInterestRate;
@@ -21,8 +23,9 @@ public class Report {
         return amortizationSchedule;
     }
 
-    public Report(String id, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge, List<Installment> amortizationSchedule) {
+    public Report(String id, LocalDateTime generationDate,String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge, List<Installment> amortizationSchedule) {
         this.id = id;
+        this.generationDate = generationDate;
         this.currency = currency;
         this.fundedCapital = fundedCapital;
         this.nominalInterestRate = nominalInterestRate;
@@ -38,6 +41,7 @@ public class Report {
     public static Report create(CreatableReportFields fields) {
 
         String id = UUID.randomUUID().toString();
+        LocalDateTime now = LocalDateTime.now();
         int paymentsPerYear = 12;
         double monthlyRate = (fields.nominalInterestRate() / 100) / paymentsPerYear;
         int months = fields.amortizationPeriod() * paymentsPerYear;
@@ -107,8 +111,11 @@ public class Report {
 
         relativeInterestCharge = totalInterestPayment / fields.fundedCapital();
 
+
+
         Report report = new Report(
                 id,
+                now,
                 fields.currency(),
                 fields.fundedCapital(),
                 fields.nominalInterestRate(),
@@ -179,5 +186,9 @@ public class Report {
 
     public double getRelativeInterestCharge() {
         return relativeInterestCharge;
+    }
+
+    public LocalDateTime getGenerationDate() {
+        return generationDate;
     }
 }
