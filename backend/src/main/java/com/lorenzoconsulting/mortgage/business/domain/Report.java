@@ -46,8 +46,8 @@ public class Report {
         double monthlyLoanPayment = 0;
         double totalLoanPayment = 0;
         double totalInterestPayment = 0;
-        double totalAmortizationPayment = totalLoanPayment - totalInterestPayment;
-        double relativeInterestRate = totalInterestPayment / fields.fundedCapital();
+        double totalAmortizationPayment = 0;
+        double relativeInterestCharge = 0;
 
         int currentPeriod = 0;
         double currentInterestFee = 0;
@@ -105,7 +105,7 @@ public class Report {
             default -> throw new IllegalArgumentException("Unsupported amortization system: " + amortizationSystem);
         }
 
-        relativeInterestRate = totalInterestPayment / fields.fundedCapital();
+        relativeInterestCharge = totalInterestPayment / fields.fundedCapital();
 
         Report report = new Report(
                 id,
@@ -117,7 +117,7 @@ public class Report {
                 monthlyLoanPayment,
                 totalLoanPayment,
                 totalInterestPayment,
-                relativeInterestRate,
+                relativeInterestCharge,
                 installments
                 );
         return report;
