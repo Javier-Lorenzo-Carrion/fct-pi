@@ -1,5 +1,7 @@
 package com.lorenzoconsulting.mortgage.business.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Report {
@@ -13,8 +15,13 @@ public class Report {
     private double totalLoanPayment;
     private double totalInterestPayment;
     private double relativeInterestCharge;
+    private List<Installment> amortizationSchedule;
 
-    public Report(String id, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+    public List<Installment> getAmortizationSchedule() {
+        return amortizationSchedule;
+    }
+
+    public Report(String id, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge, List<Installment> amortizationSchedule) {
         this.id = id;
         this.currency = currency;
         this.fundedCapital = fundedCapital;
@@ -25,17 +32,20 @@ public class Report {
         this.totalLoanPayment = totalLoanPayment;
         this.totalInterestPayment = totalInterestPayment;
         this.relativeInterestCharge = relativeInterestCharge;
+        this.amortizationSchedule = amortizationSchedule;
     }
 
     public static Report create(CreatableReportFields fields) {
 
         String id = UUID.randomUUID().toString();
-        int numberOfPaymentsByYear = 12;
-        double monthlyNominalRate = fields.nominalInterestRate() / numberOfPaymentsByYear;
-        int monthsAmortizationPeriod = fields.amortizationPeriod() * numberOfPaymentsByYear;
-        final double monthlyLoanPayment = fields.fundedCapital() * (monthlyNominalRate / (1 - Math.pow((1 + monthlyNominalRate), monthsAmortizationPeriod)));
-        double totalLoanPayment = monthlyLoanPayment * monthsAmortizationPeriod;
-        double totalInterestPayment = totalLoanPayment - fields.fundedCapital();
+        int paymentsPerYear = 12;
+        double monthlyRate = (fields.nominalInterestRate() / 100) / paymentsPerYear;
+        int months = fields.amortizationPeriod() * paymentsPerYear;
+
+        List<Installment> installments = new ArrayList<>();
+        double monthlyLoanPayment = 0;
+        double totalLoanPayment = 0;
+        double totalInterestPayment = 0;
         double totalAmortizationPayment = totalLoanPayment - totalInterestPayment;
         double relativeInterestRate = totalInterestPayment / fields.fundedCapital();
 
@@ -45,16 +55,57 @@ public class Report {
         double currentAmortizedCapital = 0;
         double currentRemainingCapital = fields.fundedCapital();
 
-        for (int i = 0; i < monthsAmortizationPeriod; i++) {
-            currentPeriod = currentPeriod + 1;
-            currentInterestFee = currentRemainingCapital * monthlyNominalRate;
-            currentAmortizationFee = monthlyLoanPayment - currentInterestFee;
-            currentRemainingCapital = currentRemainingCapital - currentAmortizationFee;
-            currentAmortizedCapital = currentAmortizedCapital + currentAmortizationFee;
-            System.out.println(currentPeriod + monthlyLoanPayment + currentInterestFee + currentAmortizationFee + currentAmortizedCapital + currentRemainingCapital);
+        String amortizationSystem = fields.amortizationSystem();
+
+        switch (amortizationSystem) {
+            case "FRENCH" -> {
+                monthlyLoanPayment = fields.fundedCapital() * (monthlyRate / (1 - Math.pow(1 + monthlyRate, -months)));
+                for (int i = 1; i <= months; i++) {
+                    currentPeriod = currentPeriod + 1;
+                    currentInterestFee = currentRemainingCapital * monthlyRate;
+                    currentAmortizationFee = monthlyLoanPayment - currentInterestFee;
+                    currentRemainingCapital = currentRemainingCapital - currentAmortizationFee;
+                    currentAmortizedCapital = currentAmortizedCapital + currentAmortizationFee;
+                    installments.add(new Installment(currentPeriod, monthlyLoanPayment, currentInterestFee, currentAmortizationFee, currentRemainingCapital));
+                    totalLoanPayment = totalLoanPayment + monthlyLoanPayment;
+                    totalInterestPayment = totalInterestPayment + currentInterestFee;
+                }
+            }
+            case "GERMAN" -> {
+                for (int i = 1; i <= months; i++) {
+                    currentPeriod = currentPeriod + 1;
+                    currentInterestFee = currentRemainingCapital * monthlyRate;
+                    currentAmortizationFee = fields.fundedCapital() / months;
+                    monthlyLoanPayment = currentInterestFee + currentAmortizationFee;
+                    currentRemainingCapital = currentRemainingCapital - currentAmortizationFee;
+                    currentAmortizedCapital = currentAmortizedCapital + currentAmortizationFee;
+                    installments.add(new Installment(currentPeriod, monthlyLoanPayment, currentInterestFee, currentAmortizationFee, currentRemainingCapital));
+                    totalLoanPayment = totalLoanPayment + monthlyLoanPayment;
+                    totalInterestPayment = totalInterestPayment + currentInterestFee;
+                }
+            }
+            case "AMERICAN" -> {
+                for (int i = 1; i <= months; i++) {
+                    currentPeriod = currentPeriod + 1;
+                    currentInterestFee = currentRemainingCapital * monthlyRate;
+                    if (i == months){
+                        currentAmortizationFee = currentRemainingCapital;
+                        monthlyLoanPayment = currentAmortizationFee + currentInterestFee;
+                    } else {
+                        currentAmortizationFee = 0;
+                    }
+                    monthlyLoanPayment = currentInterestFee + currentAmortizationFee;
+                    currentRemainingCapital = currentRemainingCapital - currentAmortizationFee;
+                    currentAmortizedCapital = currentAmortizedCapital + currentAmortizationFee;
+                    installments.add(new Installment(currentPeriod, monthlyLoanPayment, currentInterestFee, currentAmortizationFee, currentRemainingCapital));
+                    totalLoanPayment = totalLoanPayment + monthlyLoanPayment;
+                    totalInterestPayment = totalInterestPayment + currentInterestFee;
+                }
+            }
+            default -> throw new IllegalArgumentException("Unsupported amortization system: " + amortizationSystem);
         }
 
-        System.out.println(monthlyLoanPayment + totalLoanPayment +  totalAmortizationPayment + totalInterestPayment + relativeInterestRate + monthsAmortizationPeriod + fields.currency() + fields.fundedCapital() + fields.amortizationSystem() + fields.nominalInterestRate());
+        relativeInterestRate = totalInterestPayment / fields.fundedCapital();
 
         Report report = new Report(
                 id,
@@ -66,9 +117,28 @@ public class Report {
                 monthlyLoanPayment,
                 totalLoanPayment,
                 totalInterestPayment,
-                relativeInterestRate
+                relativeInterestRate,
+                installments
                 );
         return report;
+    }
+
+    public void recalculateAmortizationSchedule() {
+        CreatableReportFields fields = new CreatableReportFields(
+                this.currency,
+                this.fundedCapital,
+                this.nominalInterestRate,
+                this.amortizationPeriod,
+                this.amortizationSystem
+        );
+
+        Report temp = Report.create(fields);
+
+        this.amortizationSchedule = temp.amortizationSchedule;
+        this.monthlyLoanPayment = temp.monthlyLoanPayment;
+        this.totalLoanPayment = temp.totalLoanPayment;
+        this.totalInterestPayment = temp.totalInterestPayment;
+        this.relativeInterestCharge = temp.relativeInterestCharge;
     }
 
     public String getId() {

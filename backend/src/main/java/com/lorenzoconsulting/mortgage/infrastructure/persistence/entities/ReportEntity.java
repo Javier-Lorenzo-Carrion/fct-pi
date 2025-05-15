@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.type.descriptor.jdbc.UUIDJdbcType;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Entity
@@ -134,7 +135,7 @@ public class ReportEntity {
     }
 
     public Report toReport() {
-        return new Report(id.toString(), currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem, monthlyLoanPayment, totalLoanPayment, totalInterestPayment, relativeInterestCharge);
+        return new Report(id.toString(), currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem, monthlyLoanPayment, totalLoanPayment, totalInterestPayment, relativeInterestCharge, new ArrayList<>());
     }
 
 

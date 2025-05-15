@@ -34,6 +34,7 @@ public class ReportService {
 
     public byte[] generatePdf(String reportId) throws IOException {
         Report report = get(reportId);
+        report.recalculateAmortizationSchedule();
         return pdfGeneratorPort.generate(report);
     }
 
