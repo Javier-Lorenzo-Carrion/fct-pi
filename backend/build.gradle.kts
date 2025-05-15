@@ -22,6 +22,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core:3.+")
 
     implementation("org.apache.pdfbox:pdfbox:2.0.30")
+    implementation("be.quodlibet.boxable:boxable:1.7.0")
 }
 
 tasks.getByName<Test>("test") {
