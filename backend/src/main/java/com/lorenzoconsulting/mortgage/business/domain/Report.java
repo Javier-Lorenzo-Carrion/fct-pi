@@ -1,5 +1,6 @@
 package com.lorenzoconsulting.mortgage.business.domain;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,8 @@ import java.util.UUID;
 
 public class Report {
     private String id;
-    private LocalDateTime generationDate;
+    private String userId;
+    private Instant generationDate;
     private String currency;
     private double fundedCapital;
     private double nominalInterestRate;
@@ -23,8 +25,9 @@ public class Report {
         return amortizationSchedule;
     }
 
-    public Report(String id, LocalDateTime generationDate,String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge, List<Installment> amortizationSchedule) {
+    public Report(String id, String userId, Instant generationDate,String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge, List<Installment> amortizationSchedule) {
         this.id = id;
+        this.userId = userId;
         this.generationDate = generationDate;
         this.currency = currency;
         this.fundedCapital = fundedCapital;
@@ -38,10 +41,10 @@ public class Report {
         this.amortizationSchedule = amortizationSchedule;
     }
 
-    public static Report create(CreatableReportFields fields) {
+    public static Report create(String userId, CreatableReportFields fields) {
 
         String id = UUID.randomUUID().toString();
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
         int paymentsPerYear = 12;
         double monthlyRate = (fields.nominalInterestRate() / 100) / paymentsPerYear;
         int months = fields.amortizationPeriod() * paymentsPerYear;
@@ -115,6 +118,7 @@ public class Report {
 
         Report report = new Report(
                 id,
+                userId,
                 now,
                 fields.currency(),
                 fields.fundedCapital(),
@@ -139,7 +143,7 @@ public class Report {
                 this.amortizationSystem
         );
 
-        Report temp = Report.create(fields);
+        Report temp = Report.create(this.userId, fields);
 
         this.amortizationSchedule = temp.amortizationSchedule;
         this.monthlyLoanPayment = temp.monthlyLoanPayment;
@@ -158,6 +162,10 @@ public class Report {
 
     public double getFundedCapital() {
         return fundedCapital;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public double getNominalInterestRate() {
@@ -188,7 +196,7 @@ public class Report {
         return relativeInterestCharge;
     }
 
-    public LocalDateTime getGenerationDate() {
+    public Instant getGenerationDate() {
         return generationDate;
     }
 }

@@ -18,8 +18,8 @@ public class ReportService {
         this.pdfGeneratorPort = pdfGeneratorPort;
     }
 
-    public Report create (CreatableReportFields fields) {
-        Report reportToCreate = Report.create(fields);
+    public Report create (String userId, CreatableReportFields fields) {
+        Report reportToCreate = Report.create(userId, fields);
         reportRepository.save(reportToCreate);
         return reportToCreate;
     }
@@ -39,3 +39,5 @@ public class ReportService {
     }
 
 }
+
+// TODO: CUIDADO QUE PARECE QUE HAY UNA VULNERABILIDAD EN LA DEPENDENCIA DE BOXABLE
