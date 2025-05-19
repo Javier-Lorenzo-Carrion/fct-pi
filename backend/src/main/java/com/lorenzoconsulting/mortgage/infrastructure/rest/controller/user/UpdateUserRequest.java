@@ -8,12 +8,14 @@ public class UpdateUserRequest {
     private String lastName;
     private String birthDate;
     private String email;
+    private String password;
 
-    public UpdateUserRequest(String name, String lastName, String birthDate, String email) {
+    public UpdateUserRequest(String name, String lastName, String birthDate, String email, String password) {
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
+        this.password = password;
     }
 
     public String getName() {
@@ -49,6 +51,6 @@ public class UpdateUserRequest {
     }
 
     public EditableUserFields toFields() {
-        return new EditableUserFields(name, lastName, birthDate, email);
+        return new EditableUserFields(name, lastName, birthDate, email, password);
     }
 }

@@ -13,19 +13,21 @@ public class User {
     private String lastName;
     private String birthDate;
     private String email;
+    private String password;
 
 
-    public User(String id, String name, String lastName, String birthDate, String email) {
+    public User(String id, String name, String lastName, String birthDate, String email, String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
+        this.password = password;
     }
 
     public static User create(CreatableUserFields fields) {
         String id = UUID.randomUUID().toString();
-        User user = new User(id, fields.name(), fields.lastName(), fields.birthDate(), fields.email());
+        User user = new User(id, fields.name(), fields.lastName(), fields.birthDate(), fields.email(), fields.password());
         if (!user.isValidDateFormat()) {
             throw new InvalidUserException("Birth date must have a valid format like \"dd/MM/yyyy\"");
         }
@@ -40,6 +42,7 @@ public class User {
         if (fields.lastName() != null && !fields.lastName().isBlank()) setLastName(fields.lastName());
         if (fields.birthDate() != null && !fields.birthDate().isBlank()) setBirthDate(fields.birthDate());
         if (fields.email() != null && !fields.email().isBlank()) setEmail(fields.email());
+        if (fields.password() != null && !fields.password().isBlank()) setPassword(fields.password());
         // FIXME: OJO QUE ESTE METODO ESTA ADMITIENDO EDITAR EL EMAIL Y LA FECHA NACIMIENTO SIN COMRPOBAR QUE LOS FORMATOS SEAN CORRECTOS
     }
 
@@ -92,5 +95,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

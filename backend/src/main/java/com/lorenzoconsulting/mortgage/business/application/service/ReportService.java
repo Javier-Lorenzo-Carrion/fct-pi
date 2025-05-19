@@ -12,14 +12,17 @@ public class ReportService {
 
     private final ReportRepository reportRepository;
     private final PdfGeneratorPort pdfGeneratorPort;
+    private final UserRepository userRepository;
 
-    public ReportService(ReportRepository reportRepository, PdfGeneratorPort pdfGeneratorPort) {
+    public ReportService(ReportRepository reportRepository, PdfGeneratorPort pdfGeneratorPort, UserRepository userRepository) {
         this.reportRepository = reportRepository;
         this.pdfGeneratorPort = pdfGeneratorPort;
+        this.userRepository = userRepository;
     }
 
-    public Report create (String userId, CreatableReportFields fields) {
-        Report reportToCreate = Report.create(userId, fields);
+    public Report create (String email, CreatableReportFields fields) {
+        User foundUser = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User with email " + email + "¨not found"));
+        Report reportToCreate = Report.create(foundUser.getId(), fields);
         reportRepository.save(reportToCreate);
         return reportToCreate;
     }

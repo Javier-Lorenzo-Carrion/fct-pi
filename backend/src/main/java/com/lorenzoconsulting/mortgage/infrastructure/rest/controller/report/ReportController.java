@@ -4,6 +4,9 @@ import com.lorenzoconsulting.mortgage.business.application.service.ReportService
 import com.lorenzoconsulting.mortgage.business.domain.Report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +30,8 @@ public class ReportController {
 
     @PostMapping
     public ResponseEntity<Report> create(@RequestBody CreateReportRequest createReportRequest, @AuthenticationPrincipal Jwt jwt) {
-        String userId = jwt.getSubject();
-        Report report = reportService.create(userId, createReportRequest.toFields());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Report report = reportService.create(authentication.getName(), createReportRequest.toFields());
         return ResponseEntity.status(HttpStatus.CREATED).body(report);
     }
 

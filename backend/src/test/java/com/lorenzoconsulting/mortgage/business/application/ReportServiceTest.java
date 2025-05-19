@@ -2,9 +2,7 @@ package com.lorenzoconsulting.mortgage.business.application;
 
 import com.lorenzoconsulting.mortgage.business.application.port.out.PdfGeneratorPort;
 import com.lorenzoconsulting.mortgage.business.application.service.ReportService;
-import com.lorenzoconsulting.mortgage.business.domain.CreatableReportFields;
-import com.lorenzoconsulting.mortgage.business.domain.Report;
-import com.lorenzoconsulting.mortgage.business.domain.ReportRepository;
+import com.lorenzoconsulting.mortgage.business.domain.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,9 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import java.util.Optional;
+
 public class ReportServiceTest {
     private final ReportRepository mockReportRepository = Mockito.mock(ReportRepository.class);
     private final PdfGeneratorPort mockPdfGeneratorPort = Mockito.mock(PdfGeneratorPort.class);
+    private final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
 
     @Nested
     @DisplayName("create should")
@@ -22,7 +23,8 @@ public class ReportServiceTest {
         @Test
         public void create_a_new_report() {
             // Given
-            ReportService reportService = new ReportService(mockReportRepository, mockPdfGeneratorPort);
+            ReportService reportService = new ReportService(mockReportRepository, mockPdfGeneratorPort, mockUserRepository);
+            //Mockito.when(mockUserRepository.findByEmail("¨john.doe@example.com")).thenReturn(Optional.of(User.create()))
             // When
             String currency = "EUR";
             double fundedCapital = 300000;
@@ -30,7 +32,7 @@ public class ReportServiceTest {
             int amortizationPeriod = 30;
             String amortizatonSystem = "FRENCH";
             CreatableReportFields fields = new CreatableReportFields(currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizatonSystem);
-            String userId = "123456aabbcc";
+            String userId = "john.doe@example.com";
             reportService.create(userId, fields);
             // Then
             ArgumentCaptor<Report> reportArgumentCaptor = ArgumentCaptor.forClass(Report.class);

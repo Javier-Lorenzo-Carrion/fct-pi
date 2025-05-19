@@ -21,6 +21,9 @@
             <column name="email" type="varchar(255)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="users_email_uk"/>
             </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

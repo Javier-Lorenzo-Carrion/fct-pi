@@ -4,5 +4,6 @@ public record CreatableUserFields(
         String name,
         String lastName,
         String birthDate,
-        String email
+        String email,
+        String password
 ){}

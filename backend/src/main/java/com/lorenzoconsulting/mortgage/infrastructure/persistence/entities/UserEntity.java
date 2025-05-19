@@ -26,16 +26,19 @@ public class UserEntity {
     private String birthDate;
     @Column(name = "email")
     private String email;
+    @Column(name = "password")
+    private String password;
 
     public UserEntity() {
     }
 
-    public UserEntity(UUID id, String name, String lastName, String birthDate, String email) {
+    public UserEntity(UUID id, String name, String lastName, String birthDate, String email, String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
+        this.password = password;
     }
 
     public UUID getId() {
@@ -78,11 +81,19 @@ public class UserEntity {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public static UserEntity fromUser(User user) {
-        return new UserEntity(UUID.fromString(user.getId()), user.getName(), user.getLastName(), user.getBirthDate(), user.getEmail());
+        return new UserEntity(UUID.fromString(user.getId()), user.getName(), user.getLastName(), user.getBirthDate(), user.getEmail(), user.getPassword());
     }
 
     public User toUser() {
-        return new User(id.toString(), name, lastName, birthDate, email);
+        return new User(id.toString(), name, lastName, birthDate, email, password);
     }
 }

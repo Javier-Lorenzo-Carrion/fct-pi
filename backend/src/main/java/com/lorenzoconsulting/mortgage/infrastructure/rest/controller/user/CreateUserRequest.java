@@ -8,12 +8,14 @@ public class CreateUserRequest {
     private String lastName;
     private String birthDate;
     private String email;
+    private String password;
 
-    public CreateUserRequest(String name, String lastName, String birthDate, String email) {
+    public CreateUserRequest(String name, String lastName, String birthDate, String email, String password) {
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.email = email;
+        this.password = password;
     }
 
     public String getName() {
@@ -48,8 +50,16 @@ public class CreateUserRequest {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public CreatableUserFields toFields() {
-        return new CreatableUserFields(name, lastName, birthDate, email);
+        return new CreatableUserFields(name, lastName, birthDate, email, password);
     }
 
 }

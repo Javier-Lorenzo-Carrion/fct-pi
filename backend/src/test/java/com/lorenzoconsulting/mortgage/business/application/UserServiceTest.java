@@ -9,12 +9,14 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
 
 class UserServiceTest {
     private final UserRepository mockUserRepository = Mockito.mock(UserRepository.class);
+    private final PasswordEncoder mockPasswordEncoder = Mockito.mock(PasswordEncoder.class);
 
     @Nested
     @DisplayName("create should")
@@ -22,9 +24,9 @@ class UserServiceTest {
         @Test
         public void create_a_new_user() {
             //Given
-            UserService userService = new UserService(mockUserRepository);
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             //When
-            CreatableUserFields fields = new CreatableUserFields("Javier", "Lorenzo Carrion", "17/03/1989", "javierlorenzocarrion@gmail.com");
+            CreatableUserFields fields = new CreatableUserFields("Javier", "Lorenzo Carrion", "17/03/1989", "javierlorenzocarrion@gmail.com", "test");
             userService.create(fields);
             //Then
             ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
@@ -40,9 +42,9 @@ class UserServiceTest {
         @Test
         public void throw_an_exception_when_format_birthDate_is_not_valid() {
             //Given
-            UserService userService = new UserService(mockUserRepository);
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             //When Then
-            CreatableUserFields fields = new CreatableUserFields("Javier", "Lorenzo Carrion", "17-03-1989", "javierlorenzocarrion@gmail.com");
+            CreatableUserFields fields = new CreatableUserFields("Javier", "Lorenzo Carrion", "17-03-1989", "javierlorenzocarrion@gmail.com", "test");
             Assertions.assertThatThrownBy(() -> userService.create(fields))
                     .isInstanceOf(InvalidUserException.class)
                     .hasMessage("Birth date must have a valid format like \"dd/MM/yyyy\"");
@@ -51,9 +53,9 @@ class UserServiceTest {
         @Test
         public void throw_an_exception_when_email_is_not_valid() {
             //Given
-            UserService userService = new UserService(mockUserRepository);
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             //When Then
-            CreatableUserFields fields = new CreatableUserFields("Javier", "Lorenzo Carrion", "17/03/1989", "javierlorenzocarrion.com");
+            CreatableUserFields fields = new CreatableUserFields("Javier", "Lorenzo Carrion", "17/03/1989", "javierlorenzocarrion.com", "test");
             Assertions.assertThatThrownBy(() -> userService.create(fields))
                     .isInstanceOf(InvalidUserException.class)
                     .hasMessage("Email must have a valid format like \"john.doe@example.org\"");
@@ -66,10 +68,10 @@ class UserServiceTest {
         @Test
         public void retrieve_all_users() {
             //Given
-            UserService userService = new UserService(mockUserRepository);
-            User userJavier = new User("234567654", "Javi", "Lorenzo Carrion", "17/03/1989", "javierlorenzocarrion@gmail.com");
-            User userMiguel = new User("234fdvdcfsdvc4", "Miguel", "Lorenzo Carrion", "17/03/1989", "javierlo@gmail.com");
-            User userSergio = new User("23456fddvcfd7654", "Sergio", "Lorenzo Carrion", "17/03/1989", "jav@gmail.com");
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
+            User userJavier = new User("234567654", "Javi", "Lorenzo Carrion", "17/03/1989", "javierlorenzocarrion@gmail.com", "test");
+            User userMiguel = new User("234fdvdcfsdvc4", "Miguel", "Lorenzo Carrion", "17/03/1989", "javierlo@gmail.com", "test");
+            User userSergio = new User("23456fddvcfd7654", "Sergio", "Lorenzo Carrion", "17/03/1989", "jav@gmail.com", "test");
             Mockito.when(mockUserRepository.findAll()).thenReturn(List.of(userJavier, userMiguel, userSergio));
             //When
             List<User> actual = userService.findAll();
@@ -84,10 +86,10 @@ class UserServiceTest {
         @Test
         public void update_user() {
             //Given
-            User userUpdateable = new User("4567897", "Paco", "Alvarez Lugo", "01/01/2000", "paco@gmail.com");
-            UserService userService = new UserService(mockUserRepository);
+            User userUpdateable = new User("4567897", "Paco", "Alvarez Lugo", "01/01/2000", "paco@gmail.com", "test");
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             Mockito.when(mockUserRepository.findById(userUpdateable.getId())).thenReturn(Optional.of(userUpdateable));
-            EditableUserFields editableUserFields = new EditableUserFields("Chano", null, null, null);
+            EditableUserFields editableUserFields = new EditableUserFields("Chano", null, null, null, null);
             //When
             userService.update(userUpdateable.getId(), editableUserFields);
             //Then
@@ -104,10 +106,10 @@ class UserServiceTest {
         @Test
         public void throw_an_exception_when_update_a_non_existing_user() {
             //Given
-            User userUpdateable = new User("4567897", "Paco", "Alvarez Lugo", "01/01/2000", "paco@gmail.com");
-            UserService userService = new UserService(mockUserRepository);
+            User userUpdateable = new User("4567897", "Paco", "Alvarez Lugo", "01/01/2000", "paco@gmail.com", "test");
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             Mockito.when(mockUserRepository.findById(userUpdateable.getId())).thenReturn(Optional.empty());
-            EditableUserFields editableUserFields = new EditableUserFields("Chano", null, null, null);
+            EditableUserFields editableUserFields = new EditableUserFields("Chano", null, null, null, null);
             //When //Then
             Assertions.assertThatThrownBy(() -> userService.update(userUpdateable.getId(), editableUserFields))
                     .isInstanceOf(UserNotFoundException.class)
@@ -121,8 +123,8 @@ class UserServiceTest {
         @Test
         public void delete_user() {
             //Given
-            User userToDelete = new User("4567889098", "Maria", "Lopez Obrador", "01/01/1999", "maria@gmail.com");
-            UserService userService = new UserService(mockUserRepository);
+            User userToDelete = new User("4567889098", "Maria", "Lopez Obrador", "01/01/1999", "maria@gmail.com", "test");
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             Mockito.when(mockUserRepository.findById(userToDelete.getId())).thenReturn(Optional.of(userToDelete));
             //When
             userService.delete(userToDelete.getId());
@@ -133,8 +135,8 @@ class UserServiceTest {
         @Test
         public void throw_an_exception_when_delete_a_non_exist_user() {
             //Given
-            User userToDelete = new User("3456789", "Jose", "Tomas Barreto", "15/10/2000", "josebarreto@gmail.comm");
-            UserService userService = new UserService(mockUserRepository);
+            User userToDelete = new User("3456789", "Jose", "Tomas Barreto", "15/10/2000", "josebarreto@gmail.comm", "test");
+            UserService userService = new UserService(mockUserRepository,mockPasswordEncoder);
             Mockito.when(mockUserRepository.findById(userToDelete.getId())).thenReturn(Optional.empty());
             //When //Then
             Assertions.assertThatThrownBy(() -> userService.delete(userToDelete.getId()))
@@ -149,8 +151,8 @@ class UserServiceTest {
         @Test
         public void retrieve_a_user_byId() {
             //Given
-            User userToGet = new User("4356789", "Manuel", "Perez Chacon", "10/07/1997", "manuelchacon@gmail.com");
-            UserService userService = new UserService(mockUserRepository);
+            User userToGet = new User("4356789", "Manuel", "Perez Chacon", "10/07/1997", "manuelchacon@gmail.com", "test");
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             Mockito.when(mockUserRepository.findById(userToGet.getId())).thenReturn(Optional.of(userToGet));
             //When
             User userGetted = userService.get(userToGet.getId());
@@ -166,8 +168,8 @@ class UserServiceTest {
         @Test
         public void throw_an_exception_when_user_is_not_found() {
             //Given
-            User userToGet = new User("435678", "Benito", "Perdomo Perez", "02/02/1975", "benito@gmail.com");
-            UserService userService = new UserService(mockUserRepository);
+            User userToGet = new User("435678", "Benito", "Perdomo Perez", "02/02/1975", "benito@gmail.com", "test");
+            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
             Mockito.when(mockUserRepository.findById(userToGet.getId())).thenReturn(Optional.empty());
             //When //Then
             Assertions.assertThatThrownBy(() -> userService.get(userToGet.getId()))
