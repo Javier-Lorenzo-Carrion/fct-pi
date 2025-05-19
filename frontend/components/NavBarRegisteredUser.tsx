@@ -28,7 +28,9 @@ export default function NavbarAnonymousUser() {
                 </div>
 
                 <div className="flex items-center gap-6">
-                    <Link href="/" title="Logout" className="flex gap-4 hover:underline text-white">
+                    <Link href="/" title="Logout" className="flex gap-4 hover:underline text-white" onClick={() => {
+                        localStorage.removeItem("token");
+                    }}>
                         <span className={`shrink-0 mt-2 ${currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
                             <Power size={18}/>
                         </span>

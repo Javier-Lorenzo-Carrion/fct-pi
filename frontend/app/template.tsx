@@ -1,36 +1,36 @@
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import {PUBLIC_ROUTES} from "@/lib/authentication";
+import React from "react";
+import AuthGuard from "@/components/AuthGuard";
+import {ColorSchemeScript, Container, createTheme, mantineHtmlProps, MantineProvider} from "@mantine/core";
+import {Geist, Geist_Mono} from "next/font/google";
 
-export default function Template({children}: Readonly<{
-    children: React.ReactNode;
-}>) {
-    const router = useRouter();
-    const [checking, setChecking] = useState(true)
+const theme = createTheme({});
 
-    useEffect(() => {
-        // Cada vez que cambie la ruta:
-        const handleRouteChange = (url: string) => {
-            const token = localStorage.getItem('token')
-            const isPublic = PUBLIC_ROUTES.includes(url)
-            if (!token && !isPublic) {
-                router.push('/login')
-            }
-        }
+const geistSans = Geist({
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
+});
 
-        // Primera comprobación al montar
-        handleRouteChange(router.pathname)
-        setChecking(false)
+const geistMono = Geist_Mono({
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
+});
 
-        router.events.on('routeChangeStart', handleRouteChange)
-        return () => {
-            router.events.off('routeChangeStart', handleRouteChange)
-        }
-    }, [router])
 
-    // Evitamos el "flash" de contenido protegido
-    if (checking) {
-        return <div>Cargando…</div>
-    }
-    return {children};
+export default function Template({children}: { children: React.ReactNode }) {
+    return (
+        <html lang="en" {...mantineHtmlProps}>
+        <head>
+            <ColorSchemeScript/>
+        </head>
+        <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+        <MantineProvider theme={theme}>
+            <Container size="xs">
+                <AuthGuard>{children}</AuthGuard>
+            </Container>
+        </MantineProvider>
+        </body>
+        </html>
+    )
 }

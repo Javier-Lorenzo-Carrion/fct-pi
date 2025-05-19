@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {ColorSchemeScript, Container, createTheme, mantineHtmlProps, MantineProvider} from "@mantine/core";
+import AuthGuard from "@/components/AuthGuard";
 
 const theme = createTheme({});
 
@@ -33,7 +34,7 @@ export default function RootLayout({children}: Readonly<{
         >
         <MantineProvider theme={theme}>
             <Container size="xs">
-                {children}
+                <AuthGuard>{children}</AuthGuard>
             </Container>
         </MantineProvider>
         </body>

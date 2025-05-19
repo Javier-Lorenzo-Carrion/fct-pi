@@ -1,7 +1,6 @@
-import Cookies from 'js-cookie';
 
 export async function authFetch(url: string, options: RequestInit = {}) {
-    const token = Cookies.get('token');
+    const token = localStorage.getItem('token');
 
     return fetch(url, {
         ...options,
