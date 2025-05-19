@@ -2,7 +2,6 @@
 import {useForm} from "@mantine/form";
 import {LoginContainer, LoginFormValues} from "@/components/LoginContainer";
 import {redirect} from "next/navigation";
-import {cookies} from "next/headers";
 
 
 export default function Login() {
@@ -37,12 +36,9 @@ export default function Login() {
             const token = data.token;
 
             localStorage.setItem("token", token); // ✅ Guarda el JWT
-            const cookiesStore = await cookies();
-            cookiesStore.set("token", token);
 
             // Redirige a página protegida
             redirect("/reports");
-
         }
     }
 
