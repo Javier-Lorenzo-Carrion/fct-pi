@@ -1,6 +1,7 @@
 "use client";
 import {useForm} from "@mantine/form";
 import {SignupContainer, SignupFormValues} from "@/components/SignupContainer";
+import {redirect} from "next/navigation";
 
 
 export default function Signup() {
@@ -24,14 +25,20 @@ export default function Signup() {
         },
     });
 
-    function handleSignup(values: SignupFormValues) {
-        console.log(values.name);
-        console.log(values.lastName);
-        console.log(values.email);
-        console.log(values.birthDate);
-        console.log(values.username);
-        console.log(values.password);
-        console.log("Registro de usuario");
+    async function handleSignup(values: SignupFormValues) {
+        const response = await fetch ("http://localhost:8080/users",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        })
+
+        if(response.status !== 201) {
+            console.log("Error creating user" + await response.json());
+        } else {
+            redirect("/login");
+        }
     }
 
     return (

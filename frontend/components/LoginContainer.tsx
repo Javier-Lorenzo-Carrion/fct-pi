@@ -54,7 +54,7 @@ export function LoginContainer(props: {
             </div>
             <div className="flex-shrink-0">
                 <Image
-                    src="/images/backgroundImage.jpg"
+                    src="/images/laptop.jpg"
                     alt="Imagen central"
                     width={750}
                     height={500}

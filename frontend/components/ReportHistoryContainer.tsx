@@ -17,7 +17,7 @@ export default function ReportHistoryContainer() {
             </div>
             <div className="flex-shrink-0">
                 <Image
-                    src="/images/casa.jpg"
+                    src="/images/house.jpg"
                     alt="Imagen central"
                     width={750}
                     height={500}

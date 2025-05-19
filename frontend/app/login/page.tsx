@@ -1,6 +1,8 @@
 "use client";
 import {useForm} from "@mantine/form";
 import {LoginContainer, LoginFormValues} from "@/components/LoginContainer";
+import {redirect} from "next/navigation";
+import {cookies} from "next/headers";
 
 
 export default function Login() {
@@ -16,10 +18,32 @@ export default function Login() {
         },
     });
 
-    function handleLogin(values: LoginFormValues) {
-        console.log(values.username);
-        console.log(values.password);
-        console.log("Inicio de sesión");
+    async function handleLogin(values: LoginFormValues) {
+        const response = await fetch("http://localhost:8080/auth/login", { // Usa tu URL real aquí
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: values.username, // Asegúrate que el backend espera "email" (no "username")
+                password: values.password,
+            }),
+        })
+
+        if (!response.ok) {
+            console.error("Credenciales incorrectas" + await response.json());
+        } else {
+            const data = await response.json();
+            const token = data.token;
+
+            localStorage.setItem("token", token); // ✅ Guarda el JWT
+            const cookiesStore = await cookies();
+            cookiesStore.set("token", token);
+
+            // Redirige a página protegida
+            redirect("/reports");
+
+        }
     }
 
     return (

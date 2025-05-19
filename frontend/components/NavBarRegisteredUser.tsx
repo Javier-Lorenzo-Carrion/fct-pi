@@ -16,11 +16,11 @@ export default function NavbarAnonymousUser() {
                             <Home size={16} className="shrink-0"/>
                             Home
                         </Link>
-                        <Link href="/report" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/report" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                        <Link href="/reports" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <Clipboard size={16} className="shrink-0"/>
                             Generar mi informe
                         </Link>
-                        <Link href="/report-history" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/report-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
+                        <Link href="/reports-history" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <List size={16} className="shrink-0"/>
                             Mis informes generados
                         </Link>
