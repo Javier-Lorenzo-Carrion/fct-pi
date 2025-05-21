@@ -36,8 +36,9 @@ public class ReportController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Report>> findAll() {
-        return ResponseEntity.ok(reportService.findAll());
+    public ResponseEntity<List<Report>> findByUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ResponseEntity.ok(reportService.findBy(authentication.getName()));
     }
 
     @GetMapping("/{id}")

@@ -35,7 +35,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/signup", "/auth/**", "/public/**").permitAll()
+                        .requestMatchers("/login", "/signup", "/auth/**").permitAll()
                         .requestMatchers("/reports", "/reports-history").authenticated()
                         .anyRequest().permitAll()
                 ).cors(cors -> {

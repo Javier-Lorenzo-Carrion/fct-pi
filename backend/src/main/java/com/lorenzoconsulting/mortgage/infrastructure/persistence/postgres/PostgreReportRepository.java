@@ -25,12 +25,12 @@ public class PostgreReportRepository implements ReportRepository {
     }
 
     @Override
-    public List<Report> findAll() {
-        return reportJPARepository.findAll().stream().map(ReportEntity::toReport).toList();
+    public Optional<Report> findById(String id) {
+        return reportJPARepository.findById(UUID.fromString(id)).map(ReportEntity::toReport);
     }
 
     @Override
-    public Optional<Report> findById(String id) {
-        return reportJPARepository.findById(UUID.fromString(id)).map(ReportEntity::toReport);
+    public List<Report> findByUserId(String userId) {
+        return reportJPARepository.findByUserId(userId).stream().map(ReportEntity::toReport).toList();
     }
 }

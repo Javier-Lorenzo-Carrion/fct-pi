@@ -8,6 +8,8 @@ import java.util.Optional;
 @Repository
 public interface ReportRepository {
     void save(Report report);
-    List<Report> findAll();
+
     Optional<Report> findById(String id);
+
+    List<Report> findByUserId(String userId);
 }

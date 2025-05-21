@@ -27,8 +27,9 @@ public class ReportService {
         return reportToCreate;
     }
 
-    public List<Report> findAll() {
-        return reportRepository.findAll();
+    public List<Report> findBy(String email) {
+        User foundUser = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User with email " + email + "¨not found"));
+        return reportRepository.findByUserId(foundUser.getId());
     }
 
     public Report get(String id) {

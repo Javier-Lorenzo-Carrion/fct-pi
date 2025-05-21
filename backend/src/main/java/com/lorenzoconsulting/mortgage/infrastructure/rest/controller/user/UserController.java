@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<Void> create(@RequestBody CreateUserRequest createUserRequest) { //TODO: MOVE TO AUTHCONTROLLER
         userService.create(createUserRequest.toFields());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -36,6 +36,7 @@ public class UserController {
     }
 
     // TODO: Crear métodos update, delete y get en el controlador.
+
 
 
 }
