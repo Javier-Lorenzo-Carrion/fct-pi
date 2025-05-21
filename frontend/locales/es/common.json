@@ -1,0 +1,9 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "reports": "Generar mi informe",
+    "reportsHistory": "Mis informes generados",
+    "signup": "Registro",
+    "login": "Iniciar sesión"
+  }
+}

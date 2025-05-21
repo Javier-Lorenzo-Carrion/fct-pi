@@ -29,13 +29,15 @@ export default function NavbarAnonymousUser() {
 
                 <div className="flex items-center gap-6">
                     <Link href="/signup" title="Signup" className="flex gap-4 hover:underline text-white">
-                        <span className={`shrink-0 mt-2 ${currentPath === "/signup" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
+                        <span className={`flex gap-4 shrink-0 mt-2 ${currentPath === "/signup" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
                             <UserPlus size={18}/>
+                            Sign up
                         </span>
                     </Link>
                     <Link href="/login" title="Login" className="flex gap-4 hover:underline text-white">
-                        <span className={`shrink-0 mt-2 ${currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
+                        <span className={`flex gap-4 shrink-0 mt-2 ${currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
                             <LogIn size={18}/>
+                            Login
                         </span>
                     </Link>
                     <div className="flex gap-4">

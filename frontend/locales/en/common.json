@@ -1,0 +1,9 @@
+{
+  "navbar": {
+    "home": "Home",
+    "reports": "Generate my report",
+    "reportsHistory": "My generated reports",
+    "signup": "Signup",
+    "login": "Login"
+  }
+}
