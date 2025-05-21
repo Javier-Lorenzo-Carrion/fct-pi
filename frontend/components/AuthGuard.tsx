@@ -2,6 +2,7 @@
 
 import { useState, useEffect, ReactNode } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
+import {Text} from "@mantine/core";
 
 interface Props { children: ReactNode }
 
@@ -23,7 +24,9 @@ export default function AuthGuard({ children }: Props) {
 
     // Mientras comprobamos, evitamos un "flash" de contenido privado
     if (!checked) {
-        return <div>Cargando…</div>
+        return <div className="text-center mt-72">
+            <Text size="xl"> Comprobando credenciales ...</Text>
+        </div>
     }
 
     return <>{children}</>

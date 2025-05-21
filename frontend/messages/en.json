@@ -4,6 +4,7 @@
     "reports": "Generate my report",
     "reportsHistory": "My generated reports",
     "signup": "Signup",
-    "login": "Login"
+    "login": "Login",
+    "logout": "Logout"
   }
 }

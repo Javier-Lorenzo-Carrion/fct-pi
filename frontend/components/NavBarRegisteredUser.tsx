@@ -4,9 +4,19 @@ import {Divider, Flex} from "@mantine/core";
 import {usePathname} from "next/navigation";
 import {Clipboard, Home, List, Lock, LogIn, Power, UserPlus} from "react-feather";
 import Login from "@/app/login/page";
+import {useTranslations} from "next-intl";
+import {Locale} from "@/i18n/config";
+import {setStoredLocale} from "@/i18n/locale";
+import {useTransition} from "react";
 
 export default function NavbarAnonymousUser() {
     const currentPath = usePathname();
+    const t = useTranslations("navbar");
+
+    const [_, startTransition] = useTransition();
+    function handleChangeLocale(locale: Locale) {
+        startTransition(() => setStoredLocale(locale))
+    }
     return (
         <nav className="w-full bg-black text-white p-4 shadow-md fixed top-0 left-0 z-50">
             <div className="max-w-screen-xl mx-auto flex justify-between items-center relative">
@@ -14,29 +24,30 @@ export default function NavbarAnonymousUser() {
                     <Flex className="w-full" gap="xl" direction="row">
                         <Link href="/" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <Home size={16} className="shrink-0"/>
-                            Home
+                            {t("home")}
                         </Link>
                         <Link href="/reports" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <Clipboard size={16} className="shrink-0"/>
-                            Generate my report
+                            {t("reports")}
                         </Link>
                         <Link href="/reports-history" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <List size={16} className="shrink-0"/>
-                            My reports generated
+                            {t("reportsHistory")}
                         </Link>
                     </Flex>
                 </div>
 
                 <div className="flex items-center gap-6">
-                    <Link href="/" title="Logout" className="flex gap-4 hover:underline text-white" onClick={() => {
+                    <Link href="/" title={t("logout")} className="flex gap-4 hover:underline text-white" onClick={() => {
                         localStorage.removeItem("token");
                     }}>
-                        <span className={`shrink-0 mt-2 ${currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
+                        <span className={`flex gap-4 shrink-0 mt-2 ${currentPath === "/login" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : ""}`}>
                             <Power size={18}/>
+                            {t("logout")}
                         </span>
                     </Link>
                     <div className="flex gap-4">
-                        <button>
+                        <button onClick={() => handleChangeLocale("es")}>
                             <img
                                 src="/images/es.png"
                                 alt="Español"
@@ -44,7 +55,7 @@ export default function NavbarAnonymousUser() {
                                 title="Español"
                             />
                         </button>
-                        <button>
+                        <button onClick={() => handleChangeLocale("en")}>
                             <img
                                 src="/images/en.png"
                                 alt="English"

@@ -44,9 +44,6 @@ export function LoginContainer(props: {
 
                             {...props.form.getInputProps("password")}
                         />
-                        <Link href="#" className="text-blue-400 hover:underline text-sm">
-                            He olvidado mi contraseña
-                        </Link>
                         <Divider/>
                         <Button className="w-full" variant="filled" color="blue" radius="md" type="submit">
                             Iniciar sesión
