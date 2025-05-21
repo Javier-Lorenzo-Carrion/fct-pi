@@ -5,6 +5,8 @@ import {ColorSchemeScript, Container, createTheme, mantineHtmlProps, MantineProv
 import AuthGuard from "@/components/AuthGuard";
 import {getLocale} from "next-intl/server";
 import {NextIntlClientProvider} from "next-intl";
+import {ErrorProvider} from "@/error/context";
+import {ErrorModal} from "@/components/ErrorModal";
 
 const theme = createTheme({});
 
@@ -34,9 +36,14 @@ export default async function RootLayout({children}: Readonly<{
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <MantineProvider theme={theme}>
-            <Container size="xl">
-                <NextIntlClientProvider><AuthGuard>{children}</AuthGuard></NextIntlClientProvider>
-            </Container>
+            <NextIntlClientProvider>
+                <ErrorProvider>
+                    <Container size="xl">
+                        <ErrorModal/>
+                        <AuthGuard>{children}</AuthGuard>
+                    </Container>
+                </ErrorProvider>
+            </NextIntlClientProvider>
         </MantineProvider>
         </body>
         </html>

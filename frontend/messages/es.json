@@ -46,5 +46,15 @@
     "relativeInterest": "Intereses relativos",
     "pdf": "PDF",
     "download": "Descargar"
+  },
+  "errors": {
+    "badCredentials": {
+      "title": "Credenciales incorrectas",
+      "description": "El correo electrónico o la contraseña son incorrectos"
+    },
+    "unexpected": {
+      "title": "Error inesperado",
+      "description": "Se ha producido un error inesperado. Por favor, inténtelo de nuevo más tarde"
+    }
   }
 }

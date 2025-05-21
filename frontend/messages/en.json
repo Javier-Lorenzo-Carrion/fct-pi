@@ -46,5 +46,15 @@
     "relativeInterest": "Relative interest",
     "pdf": "PDF",
     "download": "Download"
+  },
+  "errors": {
+    "badCredentials": {
+      "title": "Bad credentials",
+      "description": "Email or password are incorrect"
+    },
+    "unexpected": {
+      "title": "Unexpected error",
+      "description": "An unexpected error has occurred. Please try again later"
+    }
   }
 }
