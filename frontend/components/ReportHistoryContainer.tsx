@@ -1,12 +1,9 @@
 "use client";
 
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
-import {useEffect, useState, useTransition} from "react";
-import {Center, Loader, ScrollArea, Table} from "@mantine/core";
-import {white} from "next/dist/lib/picocolors";
+import {JSX} from "react";
+import {Center, Loader} from "@mantine/core";
 import {useTranslations} from "next-intl";
-import {Locale} from "@/i18n/config";
-import {setStoredLocale} from "@/i18n/locale";
 
 export type Report = {
     id: string,
@@ -22,37 +19,14 @@ export type Report = {
     pdfUrl?: string;
 }
 
-export default function ReportHistoryContainer() {
-    const [reports, setReports] = useState<Report[]>([]);
-    const [loading, setLoading] = useState(true);
+export type ReportHistoryProps = {
+    reports: Report[];
+    loading: boolean;
+    downloadReport: (reportId: string) => string;
+}
 
+export default function ReportHistoryContainer({reports, loading, downloadReport}: ReportHistoryProps): JSX.Element {
     const t = useTranslations("reportsTable");
-
-    const [_, startTransition] = useTransition();
-    function handleChangeLocale(locale: Locale) {
-        startTransition(() => setStoredLocale(locale))
-    }
-
-    useEffect(() => {
-        const fetchReports = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const response = await fetch("http://localhost:8080/reports", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                if (!response.ok) throw new Error("Error fetching reports");
-                const data = await response.json();
-                setReports(data);
-            } catch (error) {
-                console.error("Error fetching reports", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchReports();
-    }, []);
 
     if(loading){
         return (
@@ -63,12 +37,12 @@ export default function ReportHistoryContainer() {
     }
 
     function currencyFormat(report: Report): Intl.NumberFormat {
-        let locale: string = "es-ES";
-        if (report.currency === "USD") {
-            locale = "en-US";
-        } else if (report.currency === "GBP") {
-            locale = "en-GB";
+        const localeByCurrency: Record<string, string> = {
+            EUR: "es-ES",
+            USD: "en-US",
+            GBP: "en-GB",
         }
+        const locale = localeByCurrency[report.currency] || "es-ES";
         return new Intl.NumberFormat(locale, {
             style: "currency",
             currency: report.currency,
@@ -112,7 +86,7 @@ export default function ReportHistoryContainer() {
                                 <td className="px-4 py-2 border">{(report.relativeInterestCharge * 100).toFixed(2)}%</td>
                                 <td className="px-4 py-2 border">
                                     <a
-                                        href={`http://localhost:8080/reports/${report.id}/pdf`}
+                                        href={downloadReport(report.id)}
                                         rel="noopener noreferrer"
                                         className="text-blue-400 hover:underline"
                                     >

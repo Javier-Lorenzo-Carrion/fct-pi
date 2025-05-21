@@ -1,15 +1,12 @@
 "use client";
 import ReportContainer, {ReportFormValues} from "@/components/ReportContainer";
-import { authFetch } from "@/lib/authFetch";
+import {authHttpClient} from "@/lib/httpclient";
 
 export default function ReportPage() {
     const generateReport = async (values: ReportFormValues) => {
         try {
-            const response = await authFetch("http://localhost:8080/reports", {
+            const response = await authHttpClient("reports", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify(values),
             });
 
@@ -21,7 +18,7 @@ export default function ReportPage() {
             const report = await response.json();
             const reportId = report.id;
 
-            const pdfResponse = await authFetch(`http://localhost:8080/reports/${reportId}/pdf`);
+            const pdfResponse = await authHttpClient(`reports/${reportId}/pdf`);
 
             if (!pdfResponse.ok) {
                 console.error("Error fetching PDF:", pdfResponse);

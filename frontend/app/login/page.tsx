@@ -2,9 +2,11 @@
 import {useForm} from "@mantine/form";
 import {LoginContainer, LoginFormValues} from "@/components/LoginContainer";
 import {redirect} from "next/navigation";
+import {httpClient} from "@/lib/httpclient";
 
 
 export default function Login() {
+    // TODO: Dont pass form into LoginContainer
     const form = useForm<LoginFormValues>({
         mode: "uncontrolled",
         initialValues: {
@@ -18,7 +20,7 @@ export default function Login() {
     });
 
     async function handleLogin(values: LoginFormValues) {
-        const response = await fetch("http://localhost:8080/auth/login", { // Usa tu URL real aquí
+        const response = await httpClient("auth/login", { // Usa tu URL real aquí
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

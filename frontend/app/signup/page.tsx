@@ -2,6 +2,7 @@
 import {useForm} from "@mantine/form";
 import {SignupContainer, SignupFormValues} from "@/components/SignupContainer";
 import {redirect} from "next/navigation";
+import {httpClient} from "@/lib/httpclient";
 
 
 export default function Signup() {
@@ -26,7 +27,7 @@ export default function Signup() {
     });
 
     async function handleSignup(values: SignupFormValues) {
-        const response = await fetch ("http://localhost:8080/users",{
+        const response = await httpClient("users",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
