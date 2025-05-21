@@ -1,33 +1,37 @@
 "use client";
 
-import {UseFormReturnType} from "@mantine/form";
+import {useForm} from "@mantine/form";
 import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
 import {Button, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
 import Link from "next/link";
-import {Key, Mail, User} from "react-feather";
+import {Key, Mail} from "react-feather";
 import Image from "next/image";
 import {useTranslations} from "next-intl";
-import {useTransition} from "react";
-import {Locale} from "@/i18n/config";
-import {setStoredLocale} from "@/i18n/locale";
 
 export interface LoginFormValues {
     email: string
     password: string
 }
 
-export function LoginContainer(props: {
+interface LoginContainerProps {
+    handleLogin: (values: LoginFormValues) => void;
+    loading: boolean;
+}
 
-    form: UseFormReturnType<LoginFormValues, (values: LoginFormValues) => LoginFormValues>,
-    handleLogin: (values: LoginFormValues) => void
-}) {
+export function LoginContainer(props: LoginContainerProps) {
+    const form = useForm<LoginFormValues>({
+        mode: "uncontrolled",
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validate: {
+            password: (value) => (!!value.length ? null : "Password is required"),
+            email: (value) => (!!value.length ? null : "Username is required"),
+        },
+    });
 
     const t = useTranslations("loginForm");
-
-    const [_, startTransition] = useTransition();
-    function handleChangeLocale(locale: Locale) {
-        startTransition(() => setStoredLocale(locale))
-    }
 
     return <div className="min-h-screen w-full bg-black flex items-center justify-center">
         <NavbarAnonymousUser/>
@@ -40,14 +44,14 @@ export function LoginContainer(props: {
                 <Link href="/signup" className="text-blue-400 hover:underline text-sm">
                     {t("wantedSignup")}
                 </Link>
-                <form onSubmit={props.form.onSubmit(props.handleLogin)} className="mt-8 w-full">
+                <form onSubmit={form.onSubmit(props.handleLogin)} className="mt-8 w-full">
                     <Flex className="w-full" gap="xl" direction="column" wrap="wrap">
                         <TextInput
                             className="w-60"
                             label={<Group><Mail size="20"/>{t("email")}</Group>}
                             placeholder={t("exampleEmail")}
 
-                            {...props.form.getInputProps("email")}
+                            {...form.getInputProps("email")}
                         />
                         <TextInput
                             className="w-60"
@@ -55,10 +59,11 @@ export function LoginContainer(props: {
                             label={<Group><Key size="20"/>{t("password")}</Group>}
                             placeholder="*******"
 
-                            {...props.form.getInputProps("password")}
+                            {...form.getInputProps("password")}
                         />
                         <Divider/>
-                        <Button className="w-full" variant="filled" color="blue" radius="md" type="submit">
+                        <Button className="w-full" variant="filled" color="blue" radius="md" type="submit"
+                                loading={props.loading} disabled={props.loading}>
                             {t("login")}
                         </Button>
                     </Flex>

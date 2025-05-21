@@ -1,25 +1,14 @@
 "use client";
-import {useForm} from "@mantine/form";
 import {LoginContainer, LoginFormValues} from "@/components/LoginContainer";
 import {redirect} from "next/navigation";
 import {httpClient} from "@/lib/httpclient";
+import {useState} from "react";
 
 
 export default function Login() {
-    // TODO: Dont pass form into LoginContainer
-    const form = useForm<LoginFormValues>({
-        mode: "uncontrolled",
-        initialValues: {
-            email: "",
-            password: "",
-        },
-        validate: {
-            password: (value) => (!!value.length ? null : "Password is required"),
-            email: (value) => (!!value.length ? null : "Username is required"),
-        },
-    });
-
+    const [loading, setLoading] = useState(false);
     async function handleLogin(values: LoginFormValues) {
+        setLoading(true)
         const response = await httpClient("auth/login", { // Usa tu URL real aquí
             method: "POST",
             headers: {
@@ -38,13 +27,13 @@ export default function Login() {
             const token = data.token;
 
             localStorage.setItem("token", token); // ✅ Guarda el JWT
-
+            setLoading(false)
             // Redirige a página protegida
             redirect("/reports");
         }
     }
 
     return (
-        <LoginContainer key={form.key("password")} form={form} handleLogin={handleLogin}/>
+        <LoginContainer handleLogin={handleLogin} loading={loading}/>
     );
 }
