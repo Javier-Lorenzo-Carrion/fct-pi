@@ -30,8 +30,7 @@ public class PdfReportGenerator implements PdfGeneratorPort {
     private static final float LINE_HEIGHT = 14f;
     private static final float START_X = 50;
     private static final DecimalFormat percentFormat = new DecimalFormat("#0.00%");
-    private static final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("es-ES"));
-
+    private static NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("es-ES"));
 
     private void addKeyValueRow(BaseTable table, String key, String value) {
         Row<PDPage> row = table.createRow(12f);
@@ -42,6 +41,14 @@ public class PdfReportGenerator implements PdfGeneratorPort {
     }
 
     public byte[] generate(Report report) throws IOException {
+
+        String currency = report.getCurrency();
+        if (currency.equals("USD")) {
+            currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("en-US"));
+        } else if (currency.equals("GBP")) {
+            currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("en-GB"));
+        }
+
         try (PDDocument document = new PDDocument(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
             PDPage summaryPage = new PDPage(PDRectangle.A4);
