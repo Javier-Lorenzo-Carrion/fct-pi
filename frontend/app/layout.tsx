@@ -34,7 +34,7 @@ export default async function RootLayout({children}: Readonly<{
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <MantineProvider theme={theme}>
-            <Container size="xs">
+            <Container size="xl">
                 <NextIntlClientProvider><AuthGuard>{children}</AuthGuard></NextIntlClientProvider>
             </Container>
         </MantineProvider>

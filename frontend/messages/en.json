@@ -6,5 +6,45 @@
     "signup": "Signup",
     "login": "Login",
     "logout": "Logout"
+  },
+  "loginForm": {
+    "titleLogin": "Login",
+    "wantedSignup": "I don't have account. I want to signup",
+    "email": "Email",
+    "exampleEmail": "example@example.com",
+    "password": "Password",
+    "login": "Login",
+    "imageDescription": "Main image"
+  },
+  "signupForm": {
+    "titleSignup": "User register",
+    "alreadyUser": "I am already a registered user",
+    "name": "Name",
+    "exampleName": "John Richard",
+    "lastName": "Last name",
+    "exampleLastName": "Rockefeller",
+    "birthDate": "Birth date",
+    "exampleBirthDate": "12/31/1990",
+    "email": "Email",
+    "exampleEmail": "example@example.com",
+    "userName": "User name",
+    "exampleUserName": "John",
+    "password": "Password",
+    "signup": "Signup",
+    "imageDescription": "Main image"
+  },
+  "reportsTable": {
+    "emptyReports": "No reports found",
+    "generationDate": "Generation date",
+    "currency": "Currency",
+    "capital": "Capital",
+    "interest": "Interest",
+    "years": "Years",
+    "system": "System",
+    "totalPayment": "Total payment",
+    "totalInterest": "Total interest",
+    "relativeInterest": "Relative interest",
+    "pdf": "PDF",
+    "download": "Download"
   }
 }

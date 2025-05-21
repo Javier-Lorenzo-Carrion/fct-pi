@@ -26,9 +26,7 @@ export default function Template({children}: { children: React.ReactNode }) {
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         <MantineProvider theme={theme}>
-            <Container size="xs">
                 <AuthGuard>{children}</AuthGuard>
-            </Container>
         </MantineProvider>
         </body>
         </html>

@@ -6,5 +6,45 @@
     "signup": "Registro",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
+  },
+  "loginForm": {
+    "titleLogin": "Inicio de sesión",
+    "wantedSignup": "No tengo cuenta. Quiero registrarme",
+    "email": "Correo electrónico",
+    "exampleEmail": "ejemplo@ejemplo.com",
+    "password": "Contraseña",
+    "login": "Iniciar sesión",
+    "imageDescription": "Imagen principal"
+  },
+  "signupForm": {
+    "titleSignup": "Registro de usuario",
+    "alreadyUser": "Ya soy un usuario registrado",
+    "name": "Nombre",
+    "exampleName": "Alberto Juan",
+    "lastName": "Apellidos",
+    "exampleLastName": "López Martín",
+    "birthDate": "Fecha de nacimiento",
+    "exampleBirthDate": "31/12/1990",
+    "email": "Correo electrónico",
+    "exampleEmail": "ejemplo@ejemplo.com",
+    "userName": "Nombre de usuario",
+    "exampleUserName": "Alberto",
+    "password": "Contraseña",
+    "signup": "Registrarme",
+    "imageDescription": "Imagen principal"
+  },
+  "reportsTable": {
+    "emptyReports": "No se han encontrado informes",
+    "generationDate": "Fecha de generación",
+    "currency": "Moneda",
+    "capital": "Capital",
+    "interest": "Intereses",
+    "years": "Años",
+    "system": "Sistema",
+    "totalPayment": "Pago total",
+    "totalInterest": "Pago de intereses",
+    "relativeInterest": "Intereses relativos",
+    "pdf": "PDF",
+    "download": "Descargar"
   }
 }

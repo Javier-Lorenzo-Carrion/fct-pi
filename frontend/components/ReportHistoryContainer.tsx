@@ -1,9 +1,12 @@
 "use client";
 
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useTransition} from "react";
 import {Center, Loader, ScrollArea, Table} from "@mantine/core";
 import {white} from "next/dist/lib/picocolors";
+import {useTranslations} from "next-intl";
+import {Locale} from "@/i18n/config";
+import {setStoredLocale} from "@/i18n/locale";
 
 export type Report = {
     id: string,
@@ -22,6 +25,13 @@ export type Report = {
 export default function ReportHistoryContainer() {
     const [reports, setReports] = useState<Report[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const t = useTranslations("reportsTable");
+
+    const [_, startTransition] = useTransition();
+    function handleChangeLocale(locale: Locale) {
+        startTransition(() => setStoredLocale(locale))
+    }
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -53,7 +63,12 @@ export default function ReportHistoryContainer() {
     }
 
     function currencyFormat(report: Report): Intl.NumberFormat {
-        const locale = report.currency === "USD" ? "en-US" : "es-ES";
+        let locale: string = "es-ES";
+        if (report.currency === "USD") {
+            locale = "en-US";
+        } else if (report.currency === "GBP") {
+            locale = "en-GB";
+        }
         return new Intl.NumberFormat(locale, {
             style: "currency",
             currency: report.currency,
@@ -65,22 +80,22 @@ export default function ReportHistoryContainer() {
         <div>
             <NavBarRegisteredUser />
             {reports.length === 0 ? (
-                <h1 className="text-center">No reports found</h1>
+                <h1 className="text-center">{t("emptyReports")}</h1>
             ) : (
                 <div className="overflow-x-auto w-full">
                     <table className="min-w-full border border-white text-white">
                         <thead className="bg-gray-800">
                         <tr>
-                            <th className="px-4 py-2 border">Generation</th>
-                            <th className="px-4 py-2 border">Currency</th>
-                            <th className="px-4 py-2 border">Capital</th>
-                            <th className="px-4 py-2 border">Interest</th>
-                            <th className="px-4 py-2 border">Years</th>
-                            <th className="px-4 py-2 border">System</th>
-                            <th className="px-4 py-2 border">Total Payment</th>
-                            <th className="px-4 py-2 border">Total Interest</th>
-                            <th className="px-4 py-2 border">Relative Interest</th>
-                            <th className="px-4 py-2 border">PDF</th>
+                            <th className="px-4 py-2 border">{t("generationDate")}</th>
+                            <th className="px-4 py-2 border">{t("currency")}</th>
+                            <th className="px-4 py-2 border">{t("capital")}</th>
+                            <th className="px-4 py-2 border">{t("interest")}</th>
+                            <th className="px-4 py-2 border">{t("years")}</th>
+                            <th className="px-4 py-2 border">{t("system")}</th>
+                            <th className="px-4 py-2 border">{t("totalPayment")}</th>
+                            <th className="px-4 py-2 border">{t("totalInterest")}</th>
+                            <th className="px-4 py-2 border">{t("relativeInterest")}</th>
+                            <th className="px-4 py-2 border">{t("pdf")}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -101,7 +116,7 @@ export default function ReportHistoryContainer() {
                                         rel="noopener noreferrer"
                                         className="text-blue-400 hover:underline"
                                     >
-                                        Download
+                                        {t("download")}
                                     </a>
                                 </td>
                             </tr>
