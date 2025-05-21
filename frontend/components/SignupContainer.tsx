@@ -1,3 +1,5 @@
+"use client";
+
 import {UseFormReturnType} from "@mantine/form";
 import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
 import {Button, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
@@ -49,7 +51,7 @@ export function SignupContainer(props: {
                         <TextInput
                             className="w-60"
                             label={<Group><Calendar size="20"/>Fecha de nacimiento</Group>}
-                            placeholder="01-01-1990"
+                            placeholder="01/01/1990"
                             {...props.form.getInputProps("birthDate")}
                         />
                         <TextInput

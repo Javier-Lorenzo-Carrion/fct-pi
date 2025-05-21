@@ -28,3 +28,5 @@ export default function AuthGuard({ children }: Props) {
 
     return <>{children}</>
 }
+
+// TODO: OJO QUE CUANDO ESTAS LOGUEADO, Y VAS AL HOME YA NO TE PUEDEN APARECER LOS ICONOS DE LOGIN O SIGNUP SOLO EL DE APAGAR O CERRAR SESIÓN

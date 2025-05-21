@@ -1,10 +1,26 @@
+"use client";
+
 import Image from "next/image";
-import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
+import {useEffect, useState} from "react";
+import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
+import NavBarAnonymousUser from "@/components/NavBarAnonymousUser";
 
 export function HomeContainer() {
+
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token); // true si hay token, false si no
+    }, []);
+
+    if (isLoggedIn === null) {
+        return null; // o un spinner si quieres
+    }
+
     return (
         <div className="min-h-screen w-full bg-black flex items-center justify-center">
-            <NavbarAnonymousUser/>
+            {isLoggedIn ? <NavBarRegisteredUser /> : <NavBarAnonymousUser />}
             <div className="flex flex-row items-center justify-center gap-12">
                 <div className="text-white w-60">
                     <p>

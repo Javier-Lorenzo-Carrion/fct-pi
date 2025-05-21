@@ -1,12 +1,14 @@
+"use client";
+
 import {UseFormReturnType} from "@mantine/form";
 import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
 import {Button, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
 import Link from "next/link";
-import {Key, User} from "react-feather";
+import {Key, Mail, User} from "react-feather";
 import Image from "next/image";
 
 export interface LoginFormValues {
-    username: string
+    email: string
     password: string
 }
 
@@ -29,10 +31,10 @@ export function LoginContainer(props: {
                     <Flex className="w-full" gap="xl" direction="column" wrap="wrap">
                         <TextInput
                             className="w-60"
-                            label={<Group><User size="20"/>Usuario</Group>}
-                            placeholder="john"
+                            label={<Group><Mail size="20"/>Email</Group>}
+                            placeholder="example@gmail.com"
 
-                            {...props.form.getInputProps("username")}
+                            {...props.form.getInputProps("email")}
                         />
                         <TextInput
                             className="w-60"

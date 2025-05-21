@@ -1,3 +1,5 @@
+"use client";
+
 import {Button, Divider, Flex, Group, NumberInput, Select, Title, Tooltip} from "@mantine/core";
 import {HelpCircle} from "react-feather";
 import Image from "next/image";

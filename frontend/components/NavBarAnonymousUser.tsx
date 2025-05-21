@@ -18,11 +18,11 @@ export default function NavbarAnonymousUser() {
                         </Link>
                         <Link href="/reports" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <Lock size={16} className="shrink-0"/>
-                            Generar mi informe
+                            Generate my report
                         </Link>
                         <Link href="/reports-history" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <Lock size={16} className="shrink-0"/>
-                            Mis informes generados
+                            My reports generated
                         </Link>
                     </Flex>
                 </div>

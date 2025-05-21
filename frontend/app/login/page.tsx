@@ -8,12 +8,12 @@ export default function Login() {
     const form = useForm<LoginFormValues>({
         mode: "uncontrolled",
         initialValues: {
-            username: "",
+            email: "",
             password: "",
         },
         validate: {
             password: (value) => (!!value.length ? null : "Password is required"),
-            username: (value) => (!!value.length ? null : "Username is required"),
+            email: (value) => (!!value.length ? null : "Username is required"),
         },
     });
 
@@ -24,7 +24,7 @@ export default function Login() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                email: values.username, // Asegúrate que el backend espera "email" (no "username")
+                email: values.email, // Asegúrate que el backend espera "email" (no "username")
                 password: values.password,
             }),
         })
