@@ -29,7 +29,6 @@ export default function Signup() {
     });
 
     const [loading, setLoading] = useState(false);
-    const {setError} = useError();
 
     async function handleSignup(values: SignupFormValues) {
         setLoading(true)
@@ -49,7 +48,6 @@ export default function Signup() {
                 redirect("/");
             }
         } catch (e) {
-            setError({title: "unexpected.title", description: "unexpected.description"})
             setLoading(false)
             throw e;
         }

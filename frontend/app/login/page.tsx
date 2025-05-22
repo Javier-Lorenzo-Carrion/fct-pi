@@ -8,7 +8,7 @@ import {useError} from "@/error/context";
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
-    const {setError} = useError();
+
     async function handleLogin(values: LoginFormValues) {
         setLoading(true)
         try {
@@ -35,9 +35,7 @@ export default function Login() {
                 redirect("/reports");
             }
         } catch (e) {
-            setError({title: "badCredentials.title", description: "badCredentials.description"})
             setLoading(false)
-            throw e;
         }
     }
 

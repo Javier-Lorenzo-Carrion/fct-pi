@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 
 export default function ReportPage() {
     const [loading, setLoading] = useState(false);
-    const { setError } = useError();
+
 
     const generateReport = async (values: ReportFormValues) => {
         setLoading(true);
@@ -19,7 +19,7 @@ export default function ReportPage() {
                 body: JSON.stringify(values),
             });
 
-            if (response.status !== 201) {
+            if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(`Error creating report: ${JSON.stringify(errorData)}`);
             }
@@ -47,10 +47,6 @@ export default function ReportPage() {
             redirect("/reports");
         } catch (error) {
             console.error(error);
-            setError({
-                title: "errorReports.title",
-                description: "errorReports.description",
-            });
         } finally {
             setLoading(false);
         }
