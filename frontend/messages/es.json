@@ -60,7 +60,8 @@
     "errorReports": {
       "title":"Generación de informe fallida",
       "description": "Durante la generación de informe algo malo ha ocurrido."
-    }
+    },
+
   },
   "homeContent": {
     "title-1": "¿Estás pensando en contratar un préstamo hipotecario?",

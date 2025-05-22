@@ -16,7 +16,7 @@ export function HomeContainer() {
 
     return (
         <div className="min-h-screen w-full bg-black flex items-center justify-center">
-            <NavBarAnonymousUser/>
+            {localStorage.getItem("token")? <NavBarRegisteredUser/>:<NavBarAnonymousUser/>}
             <div className="flex flex-col items-center justify-center">
 
                 <div className="text-white">

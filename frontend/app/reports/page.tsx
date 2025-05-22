@@ -48,8 +48,8 @@ export default function ReportPage() {
         } catch (error) {
             console.error(error);
             setError({
-                title: "fetchingReports.title",
-                description: "fetchingReports.description",
+                title: "errorReports.title",
+                description: "errorReports.description",
             });
         } finally {
             setLoading(false);
