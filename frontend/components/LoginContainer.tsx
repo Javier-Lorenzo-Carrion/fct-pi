@@ -7,6 +7,7 @@ import Link from "next/link";
 import {Key, Mail} from "react-feather";
 import Image from "next/image";
 import {useTranslations} from "next-intl";
+import {getLocaleOrDefault} from "@/i18n/config";
 
 export interface LoginFormValues {
     email: string

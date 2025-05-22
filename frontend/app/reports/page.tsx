@@ -1,9 +1,18 @@
 "use client";
-import ReportContainer, {ReportFormValues} from "@/components/ReportContainer";
-import {authHttpClient} from "@/lib/httpclient";
+
+import ReportContainer, { ReportFormValues } from "@/components/ReportContainer";
+import { authHttpClient } from "@/lib/httpclient";
+import { useState } from "react";
+import { useError } from "@/error/context";
+import { redirect } from "next/navigation";
 
 export default function ReportPage() {
+    const [loading, setLoading] = useState(false);
+    const { setError } = useError();
+
     const generateReport = async (values: ReportFormValues) => {
+        setLoading(true);
+
         try {
             const response = await authHttpClient("reports", {
                 method: "POST",
@@ -11,32 +20,39 @@ export default function ReportPage() {
             });
 
             if (response.status !== 201) {
-                console.error("Error creating reports:", response);
-                return;
+                const errorData = await response.json();
+                throw new Error(`Error creating report: ${JSON.stringify(errorData)}`);
             }
 
-            const report = await response.json();
-            const reportId = report.id;
+            const { id: reportId } = await response.json();
 
             const pdfResponse = await authHttpClient(`reports/${reportId}/pdf`);
 
             if (!pdfResponse.ok) {
-                console.error("Error fetching PDF:", pdfResponse);
-                return;
+                const errorData = await pdfResponse.json();
+                throw new Error(`Error generating PDF: ${JSON.stringify(errorData)}`);
             }
 
             const blob = await pdfResponse.blob();
-
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement("a");
+
             link.href = url;
             link.download = `report-${reportId}.pdf`;
             document.body.appendChild(link);
             link.click();
             link.remove();
             window.URL.revokeObjectURL(url);
+
+            redirect("/reports");
         } catch (error) {
-            console.error("Unexpected error:", error);
+            console.error(error);
+            setError({
+                title: "fetchingReports.title",
+                description: "fetchingReports.description",
+            });
+        } finally {
+            setLoading(false);
         }
     };
 

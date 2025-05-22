@@ -3,6 +3,7 @@
     "home": "Inicio",
     "reports": "Generar mi informe",
     "reportsHistory": "Mis informes generados",
+    "manual": "Manual",
     "signup": "Registro",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
@@ -55,6 +56,70 @@
     "unexpected": {
       "title": "Error inesperado",
       "description": "Se ha producido un error inesperado. Por favor, inténtelo de nuevo más tarde"
+    },
+    "errorReports": {
+      "title":"Generación de informe fallida",
+      "description": "Durante la generación de informe algo malo ha ocurrido."
     }
+  },
+  "homeContent": {
+    "title-1": "¿Estás pensando en contratar un préstamo hipotecario?",
+    "paragraph-1": "Cuando una persona va a una entidad bancaria en búsqueda de financiación hipotecaria, se suele encontrar con una cantidad de términos y papeleos difíciles de entender y gestionar. Es un duro proceso para personas que no pertenecen al mundo financiero. Por ello, es importante dedicar un tiempo a su comprensión y estudio. Recuerda que son productos a los que puedes estar atado durante mucho tiempo. Conviene saber exáctamente qué te ofrecen antes de decidir.",
+    "title-2": "Sabemos que este proceso es difícil y desalentador, pero con ayuda de nuestro servicio, esperamos que puedas tomar la mejor decisión.",
+    "title-3": "¿Cómo generar un informe?",
+    "paragraph-2-1": "Para generar un informe debes acceder al apartado",
+    "link-1": "Generar mi informe",
+    "paragraph-2-2": "y rellenar los datos que se solicitan en el formulario. Así podrás simular y calcular al detalle tu préstamo hipotecario y obtener un informe completo en pdf con información detallada. No te preocupes si no entiendes alguna cosa, siempre puedes acceder al apartado",
+    "link-2": "Manual",
+    "paragraph-2-3": "para consultar cualquier concepto.",
+    "title-4": "¿Qué aspectos contiene el informe?",
+    "list-1": "Moneda",
+    "list-2": "Capital financiado",
+    "list-3": "Tipo de interés nominal anual",
+    "list-4": "Duración",
+    "list-5": "Frecuencia de pago",
+    "list-6": "Sistema de amortización del préstamo",
+    "list-7": "Pagos totales por amortización e intereses",
+    "list-8": "Pagos totales por intereses",
+    "list-9": "Porcentaje de intereses respecto al capital financiado",
+    "list-10": "Cuadro de amortización (período, cuotas y capital pendiente)",
+    "title-5": "¿Necesitas más? Echa un vistazo -->",
+    "link-3": "Ejemplo-informe.pdf",
+    "imageDescription": "Imagen central",
+    "title-6": "¿Puedo ver los informes que he generado?",
+    "paragraph-3-1": "Siempre podrás ver todos los informes que hayas generado en el apartado",
+    "link-4": "Tus informes generados",
+    "paragraph-3-2": "(te recomendamos que generes tantos como propuestas hayas obtenido de las entidades bancarias).",
+    "paragraph-4": "En este apartado podrás visualizar, siempre que quieras, una tabla con todos aquellos informes que hayas generado para así observar cual es la propuesta que más te convence, hacer comparativas, etc..",
+    "paragraph-5": "Además, siempre podrás recuperar los informes en pdf que hayas generado y que ya no estén en tu poder por cualquier motivo. Simplemente bastará con acceder al link de descarga en PDF que aparace en la tabla de este apartado.",
+    "title-7": "¿Por dónde empiezo?",
+    "paragraph-6-1": "Para usar nuestro servicio, es necesario ser un usuario registrado. Puedes crear una cuenta en el apartado",
+    "link-5": "Registro.",
+    "paragraph-6-2": "Es gratis, rápido y fácil, sólo te llevará unos minutos. Si ya eres un usuario registrado, simplemente tendrás que iniciar sesión en el apartado",
+    "link-6": "Iniciar sesión"
+  },
+  "authentication": {
+    "checkingCredentials": "Comprobando credenciales..."
+  },
+  "reportGenerationForm": {
+    "titleReportGeneration": "Generación de informe",
+    "currency": "Moneda",
+    "infoCurrency": "Aquí debes indicar la moneda en la que se paga el préstamo",
+    "fundedCapital": "Capital financiado",
+    "infoFundedCapital": "Aquí debes indicar la cantidad de dinero que el banco te presta",
+    "nominalInterestRate": "Interés nominal anual",
+    "infoNominalInterestRate": "Aquí debes indicar la tasa de interés nominal anual que el banco exige",
+    "amortizationPeriod": "Plazo de amortización",
+    "infoAmortizationPeriod": "Aquí debes indicar el plazo en años del préstamo",
+    "amortizationSystem": "Sistema de amortización",
+    "infoAmortizationSystem": "Aquí debes indicar el sistema de amortización del préstamo",
+    "generateReportButton": "Generar informe",
+    "mainImage": "Imagen central",
+    "euro": "Euro",
+    "dollar": "Dólar",
+    "pounds": "Libras",
+    "frenchSystem": "Sistema francés",
+    "germanSystem": "Sistema alemán",
+    "americanSystem": "Sistema americano"
   }
 }

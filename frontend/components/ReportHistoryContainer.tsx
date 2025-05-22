@@ -4,6 +4,7 @@ import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
 import {JSX} from "react";
 import {Center, Loader} from "@mantine/core";
 import {useTranslations} from "next-intl";
+import {getLocaleOrDefault} from "@/i18n/config";
 
 export type Report = {
     id: string,
@@ -26,6 +27,7 @@ export type ReportHistoryProps = {
 }
 
 export default function ReportHistoryContainer({reports, loading, downloadReport}: ReportHistoryProps): JSX.Element {
+
     const t = useTranslations("reportsTable");
 
     if(loading){

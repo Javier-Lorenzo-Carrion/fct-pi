@@ -3,6 +3,7 @@
     "home": "Home",
     "reports": "Generate my report",
     "reportsHistory": "My generated reports",
+    "manual": "Manual",
     "signup": "Signup",
     "login": "Login",
     "logout": "Logout"
@@ -55,6 +56,70 @@
     "unexpected": {
       "title": "Unexpected error",
       "description": "An unexpected error has occurred. Please try again later"
+    },
+    "errorReports": {
+      "title": "Failed generation report",
+      "description": "During report generation something bad happened"
     }
+  },
+  "homeContent": {
+    "title-1": "Are you thinking about taking out a mortgage loan?",
+    "paragraph-1": "When someone goes to a bank looking for mortgage financing, they often encounter a lot of terms and paperwork that are difficult to understand and manage. It’s a tough process for people who are not familiar with the financial world. That’s why it’s important to take the time to understand and study it. Remember, these are products you may be tied to for a long time. It’s essential to know exactly what you’re being offered before making a decision.",
+    "title-2": "We know this process is difficult and discouraging, but with the help of our service, we hope you can make the best decision.",
+    "title-3": "How do I generate a report?",
+    "paragraph-2-1": "To generate a report, go to the",
+    "link-1": "Generate my report",
+    "paragraph-2-2": "section and fill out the requested information in the form. This will allow you to simulate and calculate your mortgage loan in detail and get a complete PDF report with detailed information. Don’t worry if you don’t understand something — you can always go to the",
+    "link-2": "Manual",
+    "paragraph-2-3": "section to look up any concepts.",
+    "title-4": "What does the report include?",
+    "list-1": "Currency",
+    "list-2": "Financed capital",
+    "list-3": "Annual nominal interest rate",
+    "list-4": "Term",
+    "list-5": "Payment frequency",
+    "list-6": "Loan amortization system",
+    "list-7": "Total payments for principal and interest",
+    "list-8": "Total interest payments",
+    "list-9": "Interest percentage relative to financed capital",
+    "list-10": "Amortization schedule (period, payments, and outstanding principal)",
+    "title-5": "Need more? Take a look -->",
+    "link-3": "Example-report.pdf",
+    "imageDescription": "Main image",
+    "title-6": "Can I view the reports I’ve generated?",
+    "paragraph-3-1": "You can always view all the reports you’ve generated in the",
+    "link-4": "My generated reports",
+    "paragraph-3-2": "section (we recommend generating as many reports as you have proposals from banks).",
+    "paragraph-4": "In this section, you’ll be able to see a table with all the reports you've generated so you can compare proposals, see which one you prefer, etc.",
+    "paragraph-5": "Additionally, you can always recover any PDF reports you generated but no longer have access to for any reason. Just click the PDF download link shown in the table in this section.",
+    "title-7": "Where do I start?",
+    "paragraph-6-1": "To use our service, you must be a registered user. You can create an account in the",
+    "link-5": "Signup",
+    "paragraph-6-2": "section. It’s free, quick, and easy — it’ll only take a few minutes. If you’re already registered, just log in through",
+    "link-6": "Login"
+  },
+  "authentication": {
+    "checkingCredentials": "Checking credentials..."
+  },
+  "reportGenerationForm": {
+    "titleReportGeneration": "Report Generation",
+    "currency": "Currency",
+    "infoCurrency": "The currency in which the loan is to be repaid must be indicated here",
+    "fundedCapital": "Funded Capital",
+    "infoFundedCapital": "The amount of money lent by the bank must be indicated here",
+    "nominalInterestRate": "Nominal Interest Rate",
+    "infoNominalInterestRate": "Interest rate in years offered by the bank must be indicated here",
+    "amortizationPeriod": "Amortization Period",
+    "infoAmortizationPeriod": "The term in years of loan repayment must be indicated here",
+    "amortizationSystem": "Amortization System",
+    "infoAmortizationSystem": "The loan repayment system must be indicated here",
+    "generateReportButton": "Generate Report",
+    "mainImage": "Main Image",
+    "euro": "Euro",
+    "dollar": "Dollar",
+    "pounds": "Pounds",
+    "frenchSystem": "French System",
+    "germanSystem": "German System",
+    "americanSystem": "American System"
   }
 }

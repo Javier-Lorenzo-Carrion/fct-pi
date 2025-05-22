@@ -3,6 +3,7 @@ import {JSX} from "react";
 import {Modal, Text, Title} from "@mantine/core";
 import {useError} from "@/error/context";
 import {useTranslations} from "next-intl";
+import {getLocaleOrDefault} from "@/i18n/config";
 
 export function ErrorModal(): JSX.Element {
     const t = useTranslations("errors");

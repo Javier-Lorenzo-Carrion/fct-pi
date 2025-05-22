@@ -5,6 +5,8 @@ import {HelpCircle} from "react-feather";
 import Image from "next/image";
 import {useForm} from "@mantine/form";
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
+import {useTranslations} from "next-intl";
+import {getLocaleOrDefault} from "@/i18n/config";
 
 export interface ReportFormValues {
     fundedCapital: number;
@@ -42,29 +44,35 @@ export default function ReportContainer(props: ReportContainerProps){
 
         }
     })
+
+    const t = useTranslations("reportGenerationForm");
+
     const currencies = [
-        {value: 'EUR', label: 'Euro'},
-        {value: 'USD', label: 'Dollar'},
-        {value: 'GBP', label: 'Pounds'},
+        {value: 'EUR', label: t("euro")},
+        {value: 'USD', label: t("dollar")},
+        {value: 'GBP', label: t("pounds")},
     ]
     const amortizationSystems = [
-        {value: 'FRENCH', label: 'French System'},
-        {value: 'GERMAN', label: 'German System'},
-        {value: 'AMERICAN', label: 'American System'},
+        {value: 'FRENCH', label: t("frenchSystem")},
+        {value: 'GERMAN', label: t("germanSystem")},
+        {value: 'AMERICAN', label: t("americanSystem")},
     ]
+
+
+
 return <div className="min-h-screen w-full bg-black flex items-center justify-center">
     <NavBarRegisteredUser/>
     <div className="flex flex-row items-center justify-center gap-12">
         <div className="text-white w-60">
             <Title size="30" c="white" className="mb-4 text-center">
-                Report Generation
+                {t("titleReportGeneration")}
             </Title>
             <br/>
             <form onSubmit={form.onSubmit(props.handleReportGeneration)} className="mt-8 w-full">
                 <Flex className="w-full" gap="xl" direction="column" wrap="wrap">
                     <Select
                         classNames={{options: 'text-black'}}
-                        label={<Group><Tooltip label={'The currency in which the loan is to be repaid must be indicated here.'}><HelpCircle size="20"/></Tooltip>Currency</Group>}
+                        label={<Group><Tooltip label={t("infoCurrency")}><HelpCircle size="20"/></Tooltip>{t("currency")}</Group>}
                         placeholder="EUR"
                         data={currencies}
                         {...form.getInputProps("currency")}
@@ -72,7 +80,7 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                     <NumberInput
                         // TODO: ADD FORMAT NUMBER FOR ENGLISH AND SPANISH VERSION
                         className="w-60"
-                        label={<Group><Tooltip label={'The amount of money lent by the bank must be indicated here.'}><HelpCircle size="20"/></Tooltip>Funded Capital</Group>}
+                        label={<Group><Tooltip label={t("infoFundedCapital")}><HelpCircle size="20"/></Tooltip>{t("fundedCapital")}</Group>}
                         placeholder="0.00"
                         allowDecimal={true}
                         decimalSeparator="."
@@ -82,7 +90,7 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                     <NumberInput
                         // TODO: ADD FORMAT NUMBER FOR ENGLISH AND SPANISH VERSION
                         className="w-60"
-                        label={<Group><Tooltip label={'Interest rate in years offered by the bank must be indicated here.'}><HelpCircle size="20"/></Tooltip>Nominal Interest Rate</Group>}
+                        label={<Group><Tooltip label={t("infoNominalInterestRate")}><HelpCircle size="20"/></Tooltip>{t("nominalInterestRate")}</Group>}
                         placeholder="0.0%"
                         min={0}
                         max={100}
@@ -95,21 +103,21 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                     <NumberInput
                         // TODO: ADD FORMAT NUMBER FOR ENGLISH AND SPANISH VERSION
                         className="w-60"
-                        label={<Group><Tooltip label={'The term in years of loan repayment must be indicated here.'}><HelpCircle size="20"/></Tooltip>Amortization Period</Group>}
+                        label={<Group><Tooltip label={t("infoAmortizationPeriod")}><HelpCircle size="20"/></Tooltip>{t("amortizationPeriod")}</Group>}
                         placeholder="0"
 
                         {...form.getInputProps("amortizationPeriod")}
                     />
                     <Select
                         classNames={{options: 'text-black'}}
-                        label={<Group><Tooltip label={'The loan repayment system must be indicated here.'}><HelpCircle size="20"/></Tooltip>Amortization System</Group>}
+                        label={<Group><Tooltip label={t("infoAmortizationSystem")}><HelpCircle size="20"/></Tooltip>{t("amortizationSystem")}</Group>}
                         placeholder="French system"
                         data={amortizationSystems}
                         {...form.getInputProps("amortizationSystem")}
                     />
                     <Divider/>
                     <Button className="w-full" variant="filled" color="blue" radius="md" type="submit">
-                        Generate Report
+                        {t("generateReportButton")}
                     </Button>
                 </Flex>
             </form>
@@ -117,7 +125,7 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
         <div className="flex-shrink-0">
             <Image
                 src="/images/house.jpg"
-                alt="Imagen central"
+                alt={t("mainImage")}
                 width={750}
                 height={500}
                 style={{objectFit: "contain"}}

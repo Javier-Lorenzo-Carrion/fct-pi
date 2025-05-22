@@ -2,10 +2,9 @@
 import Link from "next/link";
 import {Divider, Flex} from "@mantine/core";
 import {usePathname} from "next/navigation";
-import {Home, Lock, LogIn, UserPlus} from "react-feather";
-import Login from "@/app/login/page";
+import {Home, Info, Lock, LogIn, UserPlus} from "react-feather";
 import {useLocale, useTranslations} from "next-intl";
-import {Locale} from "@/i18n/config";
+import {getLocaleOrDefault, Locale} from "@/i18n/config";
 import {setStoredLocale} from "@/i18n/locale";
 import {useTransition} from "react";
 
@@ -34,6 +33,10 @@ export default function NavbarAnonymousUser() {
                         <Link href="/reports-history" className={`flex gap-4 mt-4 hover:underline ${currentPath === "/reports-history" ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "text-white"}`}>
                             <Lock size={16} className="shrink-0"/>
                             {t("reportsHistory")}
+                        </Link>
+                        <Link href="/report-manual/manual.pdf" className={`flex gap-4 mt-4 hover:underline "text-white"}`}>
+                            <Info size={16} className="shrink-0"/>
+                            {t("manual")}
                         </Link>
                     </Flex>
                 </div>

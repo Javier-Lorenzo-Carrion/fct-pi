@@ -41,7 +41,5 @@ export default function Login() {
         }
     }
 
-    return (
-        <LoginContainer handleLogin={handleLogin} loading={loading}/>
-    );
+    return (<LoginContainer handleLogin={handleLogin} loading={loading}/>);
 }

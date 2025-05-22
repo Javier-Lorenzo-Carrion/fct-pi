@@ -7,11 +7,7 @@ import Link from "next/link";
 import {Calendar, Key, Mail, User, UserCheck} from "react-feather";
 import Image from "next/image";
 import {useTranslations} from "next-intl";
-import {useTransition} from "react";
-import {Locale} from "@/i18n/config";
-import {setStoredLocale} from "@/i18n/locale";
-
-
+import {getLocaleOrDefault, Locale} from "@/i18n/config";
 
 export interface SignupFormValues {
     name: string
@@ -20,7 +16,6 @@ export interface SignupFormValues {
     email: string
     username: string
     password: string
-
 }
 
 export function SignupContainer(props: {
@@ -29,11 +24,6 @@ export function SignupContainer(props: {
 }) {
 
     const t = useTranslations("signupForm");
-
-    const [_, startTransition] = useTransition();
-    function handleChangeLocale(locale: Locale) {
-        startTransition(() => setStoredLocale(locale))
-    }
 
     return <div className="min-h-screen w-full bg-black flex items-center justify-center">
         <NavbarAnonymousUser/>

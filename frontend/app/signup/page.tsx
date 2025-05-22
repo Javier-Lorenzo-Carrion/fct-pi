@@ -3,6 +3,8 @@ import {useForm} from "@mantine/form";
 import {SignupContainer, SignupFormValues} from "@/components/SignupContainer";
 import {redirect} from "next/navigation";
 import {httpClient} from "@/lib/httpclient";
+import {useState} from "react";
+import {useError} from "@/error/context";
 
 
 export default function Signup() {
@@ -26,23 +28,32 @@ export default function Signup() {
         },
     });
 
-    async function handleSignup(values: SignupFormValues) {
-        const response = await httpClient("users",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-        })
+    const [loading, setLoading] = useState(false);
+    const {setError} = useError();
 
-        if(response.status !== 201) {
-            console.log("Error creating user" + await response.json());
-        } else {
-            redirect("/login");
+    async function handleSignup(values: SignupFormValues) {
+        setLoading(true)
+        try {
+            const response = await httpClient("auth/signup",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+            })
+
+            if (response.status !== 201) {
+                throw new Error('Error: ' + await response.json());
+            } else {
+                setLoading(false)
+                redirect("/");
+            }
+        } catch (e) {
+            setError({title: "unexpected.title", description: "unexpected.description"})
+            setLoading(false)
+            throw e;
         }
     }
 
-    return (
-        <SignupContainer key={form.key("password")} form={form} handleSignup={handleSignup}/>
-    );
+    return (<SignupContainer key={form.key("password")} form={form} handleSignup={handleSignup}/>);
 }
