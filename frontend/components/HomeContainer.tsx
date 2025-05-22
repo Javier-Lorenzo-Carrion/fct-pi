@@ -1,13 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import {useEffect, useState, useTransition} from "react";
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
 import NavBarAnonymousUser from "@/components/NavBarAnonymousUser";
 import {useTranslations} from "next-intl";
-import {getLocaleOrDefault, Locale} from "@/i18n/config";
-import {setStoredLocale} from "@/i18n/locale";
-import {List, ListItem, Title} from "@mantine/core";
+import {List, Title} from "@mantine/core";
 import {CheckCircle} from "react-feather";
 
 export function HomeContainer() {
