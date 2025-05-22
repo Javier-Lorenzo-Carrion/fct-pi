@@ -12,4 +12,6 @@ COPY --from=builder /home/gradle/project/build/libs/fct-pi-1.0-SNAPSHOT.jar /opt
 
 WORKDIR /opt
 
+EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "fct-pi.jar"]
