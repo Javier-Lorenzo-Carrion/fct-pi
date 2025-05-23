@@ -25,7 +25,7 @@ export function HomeContainer() {
 
                     <Title order={2} className="py-10 underline text-cyan-800">{t("title-3")}</Title>
 
-                    <p>{t("paragraph-2-1")}  <a href="/reports" className="text-cyan-400 underline hover:text-cyan-400">{t("link-1")}</a>  {t("paragraph-2-2")}  <a href="/report-example/example.pdf" className="text-cyan-400 underline hover:text-cyan-400">{t("link-2")}</a>  {t("paragraph-2-3")}</p>
+                    <p>{t("paragraph-2-1")}  <a href="/reports" className="text-cyan-400 underline hover:text-cyan-400">{t("link-1")}</a>  {t("paragraph-2-2")}  <a href="/report-manual/manual.pdf" className="text-cyan-400 underline hover:text-cyan-400">{t("link-2")}</a>  {t("paragraph-2-3")}</p>
 
 
                     <div className="flex flex-row gap-12">
@@ -42,7 +42,7 @@ export function HomeContainer() {
                             <List.Item>{t("list-9")}</List.Item>
                             <List.Item>{t("list-10")}</List.Item>
                             <Title order={5} className="pt-6">
-                                <p>{t("title-5")}  <a href="/report-manual/manual.pdf" className="text-cyan-400 underline hover:text-cyan-400">{t("link-3")}</a></p>
+                                <p>{t("title-5")}  <a href="/report-example/example.pdf" className="text-cyan-400 underline hover:text-cyan-400">{t("link-3")}</a></p>
                             </Title>
                         </List>
 
