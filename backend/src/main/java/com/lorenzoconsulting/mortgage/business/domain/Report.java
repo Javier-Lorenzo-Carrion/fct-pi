@@ -1,7 +1,6 @@
 package com.lorenzoconsulting.mortgage.business.domain;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +24,20 @@ public class Report {
         return amortizationSchedule;
     }
 
-    public Report(String id, String userId, Instant generationDate,String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge, List<Installment> amortizationSchedule) {
+    public Report(
+            String id,
+            String userId,
+            Instant generationDate,
+            String currency,
+            double fundedCapital,
+            double nominalInterestRate,
+            int amortizationPeriod,
+            String amortizationSystem,
+            double monthlyLoanPayment,
+            double totalLoanPayment,
+            double totalInterestPayment,
+            double relativeInterestCharge,
+            List<Installment> amortizationSchedule) {
         this.id = id;
         this.userId = userId;
         this.generationDate = generationDate;
@@ -152,51 +164,16 @@ public class Report {
         this.relativeInterestCharge = temp.relativeInterestCharge;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public double getFundedCapital() {
-        return fundedCapital;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public double getNominalInterestRate() {
-        return nominalInterestRate;
-    }
-
-    public int getAmortizationPeriod() {
-        return amortizationPeriod;
-    }
-
-    public String getAmortizationSystem() {
-        return amortizationSystem;
-    }
-
-    public double getMonthlyLoanPayment() {
-        return monthlyLoanPayment;
-    }
-
-    public double getTotalLoanPayment() {
-        return totalLoanPayment;
-    }
-
-    public double getTotalInterestPayment() {
-        return totalInterestPayment;
-    }
-
-    public double getRelativeInterestCharge() {
-        return relativeInterestCharge;
-    }
-
-    public Instant getGenerationDate() {
-        return generationDate;
-    }
+    public String getId() {return id;}
+    public String getCurrency() {return currency;}
+    public double getFundedCapital() {return fundedCapital;}
+    public String getUserId() {return userId;}
+    public double getNominalInterestRate() {return nominalInterestRate;}
+    public int getAmortizationPeriod() {return amortizationPeriod;}
+    public String getAmortizationSystem() {return amortizationSystem;}
+    public double getMonthlyLoanPayment() {return monthlyLoanPayment;}
+    public double getTotalLoanPayment() {return totalLoanPayment;}
+    public double getTotalInterestPayment() {return totalInterestPayment;}
+    public double getRelativeInterestCharge() {return relativeInterestCharge;}
+    public Instant getGenerationDate() {return generationDate;}
 }

@@ -1,7 +1,6 @@
-package com.lorenzoconsulting.mortgage.business.application.service;
+package com.lorenzoconsulting.mortgage.infrastructure.security;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,8 +12,8 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private static final long EXPIRATION_TIME = 86400000; // 1 día en milisegundos
-    private final Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode("Mzd4uUxL2ibSKuQrYCz6dFlppw12IVfObNCbJv+qq78=")); // TODO: extract to configuration
+    private static final long EXPIRATION_TIME = 86400000;
+    private final Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode("Mzd4uUxL2ibSKuQrYCz6dFlppw12IVfObNCbJv+qq78="));
 
     public String generateToken(String username) {
         return Jwts.builder()
@@ -49,5 +48,3 @@ public class JwtService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
-
-// TODO: MOVE TO INFRASTRUCTURE SECURITY

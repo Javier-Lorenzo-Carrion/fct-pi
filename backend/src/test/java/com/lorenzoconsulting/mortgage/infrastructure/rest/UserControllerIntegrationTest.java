@@ -1,6 +1,6 @@
 package com.lorenzoconsulting.mortgage.infrastructure.rest;
 
-import com.lorenzoconsulting.mortgage.common.IntegrationTest;
+
 import com.lorenzoconsulting.mortgage.infrastructure.persistence.entities.UserEntity;
 import com.lorenzoconsulting.mortgage.infrastructure.persistence.jpa.UserJPARepository;
 import org.assertj.core.api.Assertions;
@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-/*
-
-@IntegrationTest
 public class UserControllerIntegrationTest {
 
     @Autowired
@@ -131,5 +128,3 @@ public class UserControllerIntegrationTest {
         }
     }
 }
-
- */

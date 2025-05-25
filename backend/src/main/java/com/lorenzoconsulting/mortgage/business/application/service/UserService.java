@@ -22,7 +22,6 @@ public class UserService {
             throw new InvalidUserException(String.format("Email, %s, is already in use", existingUser.getEmail()));
         });
 
-        // Usar la contraseña codificada
         CreatableUserFields fieldsWithEncodedPassword = new CreatableUserFields(
                 fields.name(),
                 fields.lastName(),
@@ -38,17 +37,6 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
-    }
-
-    public void update(String id, EditableUserFields fields) {
-        User userToUpdate = get(id);
-        userToUpdate.update(fields);
-        userRepository.save(userToUpdate);
-    }
-
-    public void delete(String id) {
-        User userToDelete = get(id);
-        userRepository.delete(userToDelete);
     }
 
     public User get(String id) {

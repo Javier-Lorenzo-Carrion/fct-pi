@@ -6,7 +6,18 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record ReportResponse(String id, Instant generationDate, String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+public record ReportResponse(
+        String id,
+        Instant generationDate,
+        String currency,
+        double fundedCapital,
+        double nominalInterestRate,
+        int amortizationPeriod,
+        String amortizationSystem,
+        double monthlyLoanPayment,
+        double totalLoanPayment,
+        double totalInterestPayment,
+        double relativeInterestCharge) {
     public static ReportResponse from(Report report) {
         return new ReportResponse(
                 report.getId(),

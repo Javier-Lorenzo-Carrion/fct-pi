@@ -1,6 +1,6 @@
 package com.lorenzoconsulting.mortgage.infrastructure.rest.controller.auth;
 
-import com.lorenzoconsulting.mortgage.business.application.service.JwtService;
+import com.lorenzoconsulting.mortgage.infrastructure.security.JwtService;
 import com.lorenzoconsulting.mortgage.business.application.service.UserService;
 import com.lorenzoconsulting.mortgage.infrastructure.rest.controller.user.CreateUserRequest;
 import org.springframework.http.HttpStatus;

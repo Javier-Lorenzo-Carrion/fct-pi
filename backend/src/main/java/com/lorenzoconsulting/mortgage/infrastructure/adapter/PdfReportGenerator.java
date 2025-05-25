@@ -1,9 +1,8 @@
-package com.lorenzoconsulting.mortgage.infrastructure.adapter.pdf;
+package com.lorenzoconsulting.mortgage.infrastructure.adapter;
 
 import be.quodlibet.boxable.BaseTable;
 import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.Row;
-
 import com.lorenzoconsulting.mortgage.business.application.port.out.PdfGeneratorPort;
 import com.lorenzoconsulting.mortgage.business.domain.Installment;
 import com.lorenzoconsulting.mortgage.business.domain.Report;
@@ -13,7 +12,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Component;
-
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

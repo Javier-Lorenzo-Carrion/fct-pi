@@ -22,7 +22,6 @@ public class PostgreUserRepository implements UserRepository {
     @Override
     public void save(User user) {
         userJPARepository.save(UserEntity.fromUser(user));
-
     }
 
     @Override
@@ -38,10 +37,6 @@ public class PostgreUserRepository implements UserRepository {
     @Override
     public Optional<User> findById(String id) {
         return userJPARepository.findById(UUID.fromString(id)).map(UserEntity::toUser);
-    }
-
-    public void delete(User user) {
-        userJPARepository.delete(UserEntity.fromUser(user));
     }
 }
 

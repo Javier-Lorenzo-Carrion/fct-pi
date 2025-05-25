@@ -60,5 +60,4 @@ public class ReportController {
             return ResponseEntity.internalServerError().body(null);
         }
     }
-
 }

@@ -1,7 +1,5 @@
-package com.lorenzoconsulting.mortgage.business.application;
+package com.lorenzoconsulting.mortgage.business.application.service;
 
-import com.lorenzoconsulting.mortgage.business.application.service.UserService;
-import com.lorenzoconsulting.mortgage.business.domain.*;
 import com.lorenzoconsulting.mortgage.business.domain.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -77,71 +75,6 @@ class UserServiceTest {
             List<User> actual = userService.findAll();
             //Then
             Assertions.assertThat(actual).containsExactly(userJavier, userMiguel, userSergio);
-        }
-    }
-
-    @Nested
-    @DisplayName("update should")
-    class UpdateShould {
-        @Test
-        public void update_user() {
-            //Given
-            User userUpdateable = new User("4567897", "Paco", "Alvarez Lugo", "01/01/2000", "paco@gmail.com", "test");
-            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
-            Mockito.when(mockUserRepository.findById(userUpdateable.getId())).thenReturn(Optional.of(userUpdateable));
-            EditableUserFields editableUserFields = new EditableUserFields("Chano", null, null, null, null);
-            //When
-            userService.update(userUpdateable.getId(), editableUserFields);
-            //Then
-            ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
-            Mockito.verify(mockUserRepository).save(userArgumentCaptor.capture());
-            User actual = userArgumentCaptor.getValue();
-            Assertions.assertThat(actual.getId()).isEqualTo(userUpdateable.getId());
-            Assertions.assertThat(actual.getName()).isEqualTo("Chano");
-            Assertions.assertThat(actual.getLastName()).isEqualTo(userUpdateable.getLastName());
-            Assertions.assertThat(actual.getBirthDate()).isEqualTo(userUpdateable.getBirthDate());
-            Assertions.assertThat(actual.getEmail()).isEqualTo(userUpdateable.getEmail());
-        }
-
-        @Test
-        public void throw_an_exception_when_update_a_non_existing_user() {
-            //Given
-            User userUpdateable = new User("4567897", "Paco", "Alvarez Lugo", "01/01/2000", "paco@gmail.com", "test");
-            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
-            Mockito.when(mockUserRepository.findById(userUpdateable.getId())).thenReturn(Optional.empty());
-            EditableUserFields editableUserFields = new EditableUserFields("Chano", null, null, null, null);
-            //When //Then
-            Assertions.assertThatThrownBy(() -> userService.update(userUpdateable.getId(), editableUserFields))
-                    .isInstanceOf(UserNotFoundException.class)
-                    .hasMessage("User with id '" + userUpdateable.getId() + "' not found.");
-        }
-    }
-
-    @Nested
-    @DisplayName("delete should")
-    class DeleteShould {
-        @Test
-        public void delete_user() {
-            //Given
-            User userToDelete = new User("4567889098", "Maria", "Lopez Obrador", "01/01/1999", "maria@gmail.com", "test");
-            UserService userService = new UserService(mockUserRepository, mockPasswordEncoder);
-            Mockito.when(mockUserRepository.findById(userToDelete.getId())).thenReturn(Optional.of(userToDelete));
-            //When
-            userService.delete(userToDelete.getId());
-            //Then
-            Mockito.verify(mockUserRepository).delete(userToDelete);
-        }
-
-        @Test
-        public void throw_an_exception_when_delete_a_non_exist_user() {
-            //Given
-            User userToDelete = new User("3456789", "Jose", "Tomas Barreto", "15/10/2000", "josebarreto@gmail.comm", "test");
-            UserService userService = new UserService(mockUserRepository,mockPasswordEncoder);
-            Mockito.when(mockUserRepository.findById(userToDelete.getId())).thenReturn(Optional.empty());
-            //When //Then
-            Assertions.assertThatThrownBy(() -> userService.delete(userToDelete.getId()))
-                    .isInstanceOf(UserNotFoundException.class)
-                    .hasMessage("User with id '" + userToDelete.getId() + "' not found.");
         }
     }
 

@@ -46,7 +46,19 @@ public class ReportEntity {
 
     public ReportEntity(){}
 
-    public ReportEntity(UUID id, String userId, Instant generationDate,String currency, double fundedCapital, double nominalInterestRate, int amortizationPeriod, String amortizationSystem, double monthlyLoanPayment, double totalLoanPayment, double totalInterestPayment, double relativeInterestCharge) {
+    public ReportEntity(
+            UUID id,
+            String userId,
+            Instant generationDate,
+            String currency,
+            double fundedCapital,
+            double nominalInterestRate,
+            int amortizationPeriod,
+            String amortizationSystem,
+            double monthlyLoanPayment,
+            double totalLoanPayment,
+            double totalInterestPayment,
+            double relativeInterestCharge) {
         this.id = id;
         this.userId = userId;
         this.generationDate = generationDate;
@@ -63,82 +75,6 @@ public class ReportEntity {
 
     public UUID getId() {
         return id;
-    }
-
-    public Instant getGenerationDate() {
-        return generationDate;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public double getFundedCapital() {
-        return fundedCapital;
-    }
-
-    public double getNominalInterestRate() {
-        return nominalInterestRate;
-    }
-
-    public int getAmortizationPeriod() {
-        return amortizationPeriod;
-    }
-
-    public String getAmortizationSystem() {
-        return amortizationSystem;
-    }
-
-    public double getMonthlyLoanPayment() {
-        return monthlyLoanPayment;
-    }
-
-    public double getTotalLoanPayment() {
-        return totalLoanPayment;
-    }
-
-    public double getTotalInterestPayment() {
-        return totalInterestPayment;
-    }
-
-    public double getRelativeInterestCharge() {
-        return relativeInterestCharge;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public void setFundedCapital(double fundedCapital) {
-        this.fundedCapital = fundedCapital;
-    }
-
-    public void setNominalInterestRate(double nominalInterestRate) {
-        this.nominalInterestRate = nominalInterestRate;
-    }
-
-    public void setAmortizationPeriod(int amortizationPeriod) {
-        this.amortizationPeriod = amortizationPeriod;
-    }
-
-    public void setAmortizationSystem(String amortizationSystem) {
-        this.amortizationSystem = amortizationSystem;
-    }
-
-    public void setMonthlyLoanPayment(double monthlyLoanPayment) {
-        this.monthlyLoanPayment = monthlyLoanPayment;
-    }
-
-    public void setTotalLoanPayment(double totalLoanPayment) {
-        this.totalLoanPayment = totalLoanPayment;
-    }
-
-    public void setTotalInterestPayment(double totalInterestPayment) {
-        this.totalInterestPayment = totalInterestPayment;
-    }
-
-    public void setRelativeInterestCharge(double relativeInterestCharge) {
-        this.relativeInterestCharge = relativeInterestCharge;
     }
 
     public static ReportEntity fromReport(Report report) {
@@ -159,6 +95,19 @@ public class ReportEntity {
     }
 
     public Report toReport() {
-        return new Report(id.toString(), userId,generationDate,currency, fundedCapital, nominalInterestRate, amortizationPeriod, amortizationSystem, monthlyLoanPayment, totalLoanPayment, totalInterestPayment, relativeInterestCharge, new ArrayList<>());
+        return new Report(
+                id.toString(),
+                userId,
+                generationDate,
+                currency,
+                fundedCapital,
+                nominalInterestRate,
+                amortizationPeriod,
+                amortizationSystem,
+                monthlyLoanPayment,
+                totalLoanPayment,
+                totalInterestPayment,
+                relativeInterestCharge,
+                new ArrayList<>());
     }
 }

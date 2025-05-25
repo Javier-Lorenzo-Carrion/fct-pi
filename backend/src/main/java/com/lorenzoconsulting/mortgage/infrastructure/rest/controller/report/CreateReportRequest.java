@@ -26,42 +26,32 @@ public class CreateReportRequest {
     public String getCurrency() {
         return currency;
     }
-
     public double getFundedCapital() {
         return fundedCapital;
     }
-
     public double getNominalInterestRate() {
         return nominalInterestRate;
     }
-
     public int getAmortizationPeriod() {
         return amortizationPeriod;
     }
-
     public String getAmortizationSystem() {
         return amortizationSystem;
     }
-
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-
     public void setFundedCapital(double fundedCapital) {
         this.fundedCapital = fundedCapital;
     }
-
     public void setNominalInterestRate(double nominalInterestRate) {
         this.nominalInterestRate = nominalInterestRate;
     }
-
     public void setAmortizationPeriod(int amortizationPeriod) {
         this.amortizationPeriod = amortizationPeriod;
     }
-
     public void setAmortizationSystem(String amortizationSystem) {
         this.amortizationSystem = amortizationSystem;
     }
-
 }
 
