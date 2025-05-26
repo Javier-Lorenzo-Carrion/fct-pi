@@ -1,10 +1,8 @@
 "use client";
-
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
 import {JSX} from "react";
 import {Center, Loader} from "@mantine/core";
 import {useTranslations} from "next-intl";
-import {getLocaleOrDefault} from "@/i18n/config";
 
 export type Report = {
     id: string,
@@ -19,17 +17,13 @@ export type Report = {
     relativeInterestCharge: number,
     pdfUrl?: string;
 }
-
 export type ReportHistoryProps = {
     reports: Report[];
     loading: boolean;
     downloadReport: (reportId: string) => string;
 }
-
 export default function ReportHistoryContainer({reports, loading, downloadReport}: ReportHistoryProps): JSX.Element {
-
     const t = useTranslations("reportsTable");
-
     if(loading){
         return (
             <Center className="min-h-screen bg-black">
@@ -37,7 +31,6 @@ export default function ReportHistoryContainer({reports, loading, downloadReport
             </Center>
         );
     }
-
     function currencyFormat(report: Report): Intl.NumberFormat {
         const localeByCurrency: Record<string, string> = {
             EUR: "es-ES",
@@ -51,7 +44,6 @@ export default function ReportHistoryContainer({reports, loading, downloadReport
             minimumFractionDigits: 2,
         });
     }
-
     return (
         <div>
             <NavBarRegisteredUser />

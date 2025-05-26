@@ -4,8 +4,6 @@ import {SignupContainer, SignupFormValues} from "@/components/SignupContainer";
 import {redirect} from "next/navigation";
 import {httpClient} from "@/lib/httpclient";
 import {useState} from "react";
-import {useError} from "@/error/context";
-
 
 export default function Signup() {
     const form = useForm<SignupFormValues>({
@@ -27,9 +25,7 @@ export default function Signup() {
             username: (value) => (!!value.length ? null : "Username is required"),
         },
     });
-
     const [loading, setLoading] = useState(false);
-
     async function handleSignup(values: SignupFormValues) {
         setLoading(true)
         try {
@@ -52,6 +48,5 @@ export default function Signup() {
             throw e;
         }
     }
-
     return (<SignupContainer key={form.key("password")} form={form} handleSignup={handleSignup}/>);
 }

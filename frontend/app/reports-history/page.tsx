@@ -1,5 +1,4 @@
 "use client";
-
 import ReportHistoryContainer, {Report} from "@/components/ReportHistoryContainer";
 import {useEffect, useState} from "react";
 import {authHttpClient} from "@/lib/httpclient";

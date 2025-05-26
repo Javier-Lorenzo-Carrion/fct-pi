@@ -3,12 +3,10 @@ import {LoginContainer, LoginFormValues} from "@/components/LoginContainer";
 import {redirect} from "next/navigation";
 import {httpClient} from "@/lib/httpclient";
 import {useState} from "react";
-import {useError} from "@/error/context";
 
 
 export default function Login() {
     const [loading, setLoading] = useState(false);
-
     async function handleLogin(values: LoginFormValues) {
         setLoading(true)
         try {
@@ -22,22 +20,18 @@ export default function Login() {
                     password: values.password,
                 }),
             })
-
             if (!response.ok) {
                 throw new Error('Error: ' + await response.json());
             } else {
                 const data = await response.json();
                 const token = data.token;
-
                 localStorage.setItem("token", token); // ✅ Guarda el JWT
                 setLoading(false)
-                // Redirige a página protegida
                 redirect("/reports");
             }
         } catch (e) {
             setLoading(false)
         }
     }
-
     return (<LoginContainer handleLogin={handleLogin} loading={loading}/>);
 }

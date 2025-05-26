@@ -1,5 +1,4 @@
 "use client";
-
 import {UseFormReturnType} from "@mantine/form";
 import NavbarAnonymousUser from "@/components/NavBarAnonymousUser";
 import {Button, Divider, Flex, Group, TextInput, Title} from "@mantine/core";
@@ -7,7 +6,6 @@ import Link from "next/link";
 import {Calendar, Key, Mail, User, UserCheck} from "react-feather";
 import Image from "next/image";
 import {useTranslations} from "next-intl";
-import {getLocaleOrDefault, Locale} from "@/i18n/config";
 
 export interface SignupFormValues {
     name: string
@@ -17,14 +15,11 @@ export interface SignupFormValues {
     username: string
     password: string
 }
-
 export function SignupContainer(props: {
     form: UseFormReturnType<SignupFormValues, (values: SignupFormValues) => SignupFormValues>,
     handleSignup: (values: SignupFormValues) => void
 }) {
-
     const t = useTranslations("signupForm");
-
     return <div className="min-h-screen w-full bg-black flex items-center justify-center">
         <NavbarAnonymousUser/>
         <div className="flex flex-row items-center justify-center gap-12">

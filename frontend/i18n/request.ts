@@ -1,5 +1,5 @@
-import {getLocale, getRequestConfig} from "next-intl/server";
-import {defaultLocale} from "./config";
+import {getRequestConfig} from "next-intl/server";
+
 import {getStoredLocale} from "@/i18n/locale";
 
 async function handleLocale() {;
@@ -9,5 +9,4 @@ async function handleLocale() {;
             messages: (await import(`../messages/${storedLocale}.json`)).default
         };
 }
-
 export default getRequestConfig(handleLocale);

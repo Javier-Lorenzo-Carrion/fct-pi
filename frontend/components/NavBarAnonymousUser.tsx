@@ -11,12 +11,10 @@ import {useTransition} from "react";
 export default function NavbarAnonymousUser() {
     const currentPath = usePathname();
     const t = useTranslations("navbar");
-
     const [_, startTransition] = useTransition();
     function handleChangeLocale(locale: Locale) {
         startTransition(() => setStoredLocale(locale))
     }
-
     return (
         <nav className="w-full bg-black text-white p-4 shadow-md fixed top-0 left-0 z-50">
             <div className="max-w-screen-xl mx-auto flex justify-between items-center relative">

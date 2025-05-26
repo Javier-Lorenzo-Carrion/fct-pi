@@ -1,12 +1,10 @@
 "use client";
-
 import {Button, Divider, Flex, Group, NumberInput, Select, Title, Tooltip} from "@mantine/core";
 import {HelpCircle} from "react-feather";
 import Image from "next/image";
 import {useForm} from "@mantine/form";
 import NavBarRegisteredUser from "@/components/NavBarRegisteredUser";
 import {useTranslations} from "next-intl";
-import {getLocaleOrDefault} from "@/i18n/config";
 
 export interface ReportFormValues {
     fundedCapital: number;
@@ -14,26 +12,19 @@ export interface ReportFormValues {
     nominalInterestRate: number;
     amortizationPeriod: number;
     amortizationSystem: string;
-
-
 }
 interface ReportContainerProps {
     handleReportGeneration: (values: ReportFormValues) => void;
-
 }
 export default function ReportContainer(props: ReportContainerProps){
     const form = useForm<ReportFormValues>({
         mode: "controlled",
         initialValues: {
-            // TODO: CUANDO SE INTRODUCE EL DATO EN EL CAMPO SIGUE APARECIENDO EL CERO AL PRINCIPIO CUANDO EL USUARIO ESCRIBE
             fundedCapital: 0.00,
             currency: "EUR",
             nominalInterestRate: 0.00,
             amortizationPeriod: 0.00,
             amortizationSystem: "FRENCH"
-
-        // TODO: TENGO EL PROBLEMA DE QUE CUANDO DEJO LOS INITIAL VALUES LOS PLACEHOLDERS NO SIRVEN PARA NADA PERO SI LOS QUITO ENTONCES LO QUE NO SIRVE ES EL VALIDATE
-
         },
         validate: {
             fundedCapital: value => value > 0 ? null : 'Funded capital must be greater than zero',
@@ -41,12 +32,9 @@ export default function ReportContainer(props: ReportContainerProps){
             nominalInterestRate: value => value > 0 ? null : "Nominal annual interest rate must be greater than zero",
             amortizationPeriod: value => value > 0 ? null : "Amortization period must be greater than zero",
             amortizationSystem: value => value.length > 0 ? null : "Amortization system must be selected",
-
         }
     })
-
     const t = useTranslations("reportGenerationForm");
-
     const currencies = [
         {value: 'EUR', label: t("euro")},
         {value: 'USD', label: t("dollar")},
@@ -57,9 +45,6 @@ export default function ReportContainer(props: ReportContainerProps){
         {value: 'GERMAN', label: t("germanSystem")},
         {value: 'AMERICAN', label: t("americanSystem")},
     ]
-
-
-
 return <div className="min-h-screen w-full bg-black flex items-center justify-center">
     <NavBarRegisteredUser/>
     <div className="flex flex-row items-center justify-center gap-12">
@@ -78,7 +63,6 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                         {...form.getInputProps("currency")}
                     />
                     <NumberInput
-                        // TODO: ADD FORMAT NUMBER FOR ENGLISH AND SPANISH VERSION
                         className="w-60"
                         label={<Group><Tooltip label={t("infoFundedCapital")}><HelpCircle size="20"/></Tooltip>{t("fundedCapital")}</Group>}
                         placeholder="0.00"
@@ -88,7 +72,6 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                         {...form.getInputProps("fundedCapital")}
                     />
                     <NumberInput
-                        // TODO: ADD FORMAT NUMBER FOR ENGLISH AND SPANISH VERSION
                         className="w-60"
                         label={<Group><Tooltip label={t("infoNominalInterestRate")}><HelpCircle size="20"/></Tooltip>{t("nominalInterestRate")}</Group>}
                         placeholder="0.0%"
@@ -101,7 +84,6 @@ return <div className="min-h-screen w-full bg-black flex items-center justify-ce
                         {...form.getInputProps("nominalInterestRate")}
                     />
                     <NumberInput
-                        // TODO: ADD FORMAT NUMBER FOR ENGLISH AND SPANISH VERSION
                         className="w-60"
                         label={<Group><Tooltip label={t("infoAmortizationPeriod")}><HelpCircle size="20"/></Tooltip>{t("amortizationPeriod")}</Group>}
                         placeholder="0"

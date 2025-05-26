@@ -2,17 +2,15 @@
 import Link from "next/link";
 import {Divider, Flex} from "@mantine/core";
 import {usePathname} from "next/navigation";
-import {Clipboard, Home, Info, List, Lock, LogIn, Power, UserPlus} from "react-feather";
-import Login from "@/app/login/page";
+import {Clipboard, Home, Info, List, Power} from "react-feather";
 import {useTranslations} from "next-intl";
-import {getLocaleOrDefault, Locale} from "@/i18n/config";
+import {Locale} from "@/i18n/config";
 import {setStoredLocale} from "@/i18n/locale";
 import {useTransition} from "react";
 
 export default function NavbarAnonymousUser() {
     const currentPath = usePathname();
     const t = useTranslations("navbar");
-
     const [_, startTransition] = useTransition();
     function handleChangeLocale(locale: Locale) {
         startTransition(() => setStoredLocale(locale))
@@ -40,7 +38,6 @@ export default function NavbarAnonymousUser() {
                         </Link>
                     </Flex>
                 </div>
-
                 <div className="flex items-center gap-6">
                     <Link href="/" title={t("logout")} className="flex gap-4 hover:underline text-white" onClick={() => {
                         localStorage.removeItem("token");
