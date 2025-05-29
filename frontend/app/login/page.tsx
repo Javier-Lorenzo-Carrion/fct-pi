@@ -1,37 +1,55 @@
 "use client";
 import {LoginContainer, LoginFormValues} from "@/components/LoginContainer";
-import {redirect} from "next/navigation";
+import { useRouter } from "next/navigation";
 import {httpClient} from "@/lib/httpclient";
 import {useState} from "react";
+import {useError} from "@/error/context";
+import {useTranslations} from "next-intl";
 
 
 export default function Login() {
+
     const [loading, setLoading] = useState(false);
+    const { setError } = useError();
+    const router = useRouter();
+    const t = useTranslations("errors");
+
+    return (<LoginContainer handleLogin={handleLogin} loading={loading}/>);
+
     async function handleLogin(values: LoginFormValues) {
         setLoading(true)
         try {
-            const response = await httpClient("auth/login", { // Usa tu URL real aquí
+            const response = await httpClient("auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    email: values.email, // Asegúrate que el backend espera "email" (no "username")
+                    email: values.email,
                     password: values.password,
                 }),
             })
             if (!response.ok) {
-                throw new Error('Error: ' + await response.json());
+                const errorData = await response.json();
+                setError({
+                    title: t("badCredentials.title"),
+                    description: t("badCredentials.description"),
+                });
+                setLoading(false);
+                return;
             } else {
                 const data = await response.json();
                 const token = data.token;
-                localStorage.setItem("token", token); // ✅ Guarda el JWT
+                localStorage.setItem("token", token);
                 setLoading(false)
-                redirect("/reports");
+                router.push("/");
             }
         } catch (e) {
+            setError({
+                title: t("unexpected.title"),
+                description: t("unexpected.description"),
+            });
             setLoading(false)
         }
     }
-    return (<LoginContainer handleLogin={handleLogin} loading={loading}/>);
 }
