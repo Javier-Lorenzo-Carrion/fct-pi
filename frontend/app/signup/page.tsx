@@ -1,11 +1,12 @@
 "use client";
 import {useForm} from "@mantine/form";
 import {SignupContainer, SignupFormValues} from "@/components/SignupContainer";
-import {redirect} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {httpClient} from "@/lib/httpclient";
 import {useState} from "react";
 
 export default function Signup() {
+    const router = useRouter();
     const form = useForm<SignupFormValues>({
         mode: "uncontrolled",
         initialValues: {
@@ -41,7 +42,7 @@ export default function Signup() {
                 throw new Error('Error: ' + await response.json());
             } else {
                 setLoading(false)
-                redirect("/");
+                router.push("/registeredUser");
             }
         } catch (e) {
             setLoading(false)

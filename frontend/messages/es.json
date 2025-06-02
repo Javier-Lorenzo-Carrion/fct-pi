@@ -121,5 +121,9 @@
     "frenchSystem": "Sistema francés",
     "germanSystem": "Sistema alemán",
     "americanSystem": "Sistema americano"
+  },
+  "registeredUser": {
+    "welcomeMessage": "¡Ya eres un usuario registrado!",
+    "linkToLogin": "Inicia sesión"
   }
 }

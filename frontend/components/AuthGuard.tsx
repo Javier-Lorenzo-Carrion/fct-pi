@@ -13,7 +13,7 @@ export default function AuthGuard({ children }: Props) {
     const t = useTranslations("authentication");
     useEffect(() => {
         const token = localStorage.getItem('token')
-        const publicPaths = ['/login', '/signup', '/']
+        const publicPaths = ['/login', '/signup', '/', '/registeredUser']
 
         if (!token && !publicPaths.includes(pathname)) {
             router.replace('/login')

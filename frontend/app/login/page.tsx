@@ -12,7 +12,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const { setError } = useError();
     const router = useRouter();
-    const t = useTranslations("errors");
+    const t = useTranslations("badCredentials");
 
     return (<LoginContainer handleLogin={handleLogin} loading={loading}/>);
 
@@ -32,8 +32,8 @@ export default function Login() {
             if (!response.ok) {
                 const errorData = await response.json();
                 setError({
-                    title: t("badCredentials.title"),
-                    description: t("badCredentials.description"),
+                    title: t("title"),
+                    description: t("description"),
                 });
                 setLoading(false);
                 return;
